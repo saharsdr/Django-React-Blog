@@ -1,5 +1,6 @@
 import React from "react";
 import { Navbar, Container, Nav } from "react-bootstrap";
+import { Link } from "react-router-dom";
 function Nav100() {
   return (
     <>
@@ -11,7 +12,10 @@ function Nav100() {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav>
-              <Nav.Link href="#Home">صفحه نخست</Nav.Link>
+              <Nav.Link>
+                <Link to="/">صفحه نخست</Link>
+              </Nav.Link>
+
               <Nav.Link href="#NewPost">جدیدترین پست ها</Nav.Link>
               <Nav.Link href="#HoshMasnoee">هوش مصنوعی</Nav.Link>
               <Nav.Link href="#pricing">مهندسی نرم افزار</Nav.Link>

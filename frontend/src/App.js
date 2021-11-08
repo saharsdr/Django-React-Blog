@@ -15,26 +15,32 @@ import Single from "./pages/Single";
 import Login from "./pages/Login";
 
 // Import Router
-import { Routes, Route, Outlet, Link } from "react-router-dom";
+import { Switch, Route, useLocation } from "react-router-dom";
 
 function App() {
+  const location = useLocation();
   return (
     <div>
       <GlobalStyle />
       <Container>
         <Nav100 />
-        <Routes>
-          {/* <Route path="/" element={<Home />}> */}
-          <Route path="/" index element={<Home />} />
-          <Route path="/single/:id" element={<Single />} />
-          <Route path="/Login" element={<Login />} />
+        <Switch location={location} key={location.pathname}>
+          <Route path="/" exact>
+            <Home />
+          </Route>
+          <Route path="/post/:id">
+            <Single />
+          </Route>
+          <Route path="/Login">
+            <Login />
+          </Route>
 
           {/* Using path="*"" means "match anything", so this route
                 acts like a catch-all for URLs that we don't have explicit
                 routes for. */}
           {/* <Route path="*" element={<NoMatch />} /> */}
           {/* </Route> */}
-        </Routes>
+        </Switch>
         <Footer />
       </Container>
     </div>

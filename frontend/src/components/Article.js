@@ -1,19 +1,23 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-function Article({ title, author, key, kholase, pic, publish_time }) {
+import { Link } from "react-router-dom";
+
+function Article({ post }) {
   return (
     <>
-      <Card key={key}>
-        <Image src={pic} />
-        <Content>
-          <h2>{title}</h2>
-          <div className="card__body">{kholase}</div>
-          <div className="card__footer">
-            <h6>{author}</h6>
-            <span>{publish_time}</span>
-          </div>
-        </Content>
-      </Card>
+      <Link to={`/post/${post.id}`}>
+        <Card key={post.id}>
+          <Image src={post.thumbnail_pic} />
+          <Content>
+            <h2>{post.title}</h2>
+            <div className="card__body">{post.kholase}</div>
+            <div className="card__footer">
+              <h6>{post.author}</h6>
+              <span>{post.datetime}</span>
+            </div>
+          </Content>
+        </Card>
+      </Link>
     </>
   );
 }
