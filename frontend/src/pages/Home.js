@@ -18,7 +18,7 @@ function Home() {
       <Row xs={1} md={1} lg={2} className="g-5 my-2">
         {articles.map((article) => (
           <Col>
-            <Article post={article} key={article.id} />
+            <Article post={article} key={article._id} />
           </Col>
         ))}
       </Row>

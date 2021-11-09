@@ -16,20 +16,20 @@ function Single() {
     }
     fetchPost();
   }, []);
-  // console.log(post);
+
   return (
     <Div>
       <div className="author">
         <h3>
           {post.author} <Button variant="info">followed</Button>
         </h3>
-        <span>{post.datatime}</span>
+        <span>{post.createdAt}</span>
       </div>
       <div className="article my-5">
         <h2>{post.title}</h2>
         <Image src="holder.js/100px250" fluid />
         <br />
-        <p className="kholase text-muted">{post.kholase}</p>
+        <p className="kholase text-muted">{post.descriprion}</p>
 
         <p className="content">{post.content}</p>
         <div className="categories">

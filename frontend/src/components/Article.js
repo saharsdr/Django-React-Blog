@@ -5,15 +5,15 @@ import { Link } from "react-router-dom";
 function Article({ post }) {
   return (
     <>
-      <Link to={`/post/${post.id}`}>
-        <Card key={post.id}>
+      <Link to={`/post/${post._id}`}>
+        <Card key={post._id}>
           <Image src={post.thumbnail_pic} />
           <Content>
             <h2>{post.title}</h2>
-            <div className="card__body">{post.kholase}</div>
+            <div className="card__body">{post.descriprion}</div>
             <div className="card__footer">
               <h6>{post.author}</h6>
-              <span>{post.datetime}</span>
+              <span>{post.createdAt}</span>
             </div>
           </Content>
         </Card>
