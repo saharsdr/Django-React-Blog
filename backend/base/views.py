@@ -4,10 +4,10 @@ from rest_framework import serializers
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from .models import Post
+from .models import Post, PostCategory
 from .posts import posts
 
-from .serailizers import PostSerializer
+from .serailizers import PostCategorySerializer, PostSerializer
 # Create your views here.
 
 
@@ -17,6 +17,7 @@ def getRoutes(request):
         '/api/posts/',
         '/api/posts/<id>/',
         '/api/posts/<id>/comments/',
+        '/api/posts/<id>/categories/',
         '/api/posts/<id>/comments/create/',
         '/api/posts/create/',
         '/api/posts/<id>/edit/',
@@ -39,4 +40,11 @@ def getPosts(request):
 def getPost(request, pk):
     post = Post.objects.get(_id=pk)
     serializer = PostSerializer(post, many=False)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def getPostCategories(request, pk):
+    categories = PostCategory.objects.all()
+    serializer = PostCategorySerializer(categories, many=True)
     return Response(serializer.data)

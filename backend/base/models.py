@@ -34,7 +34,7 @@ class PostCategory(models.Model):
         Category, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
-        return self.name
+        return str(self.post) + " --- "+str(self.category)
 
 
 class Comment(models.Model):
@@ -42,6 +42,8 @@ class Comment(models.Model):
     createdAt = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(
         User, on_delete=models.SET_NULL, null=True, blank=True)
+    post = models.ForeignKey(
+        Post, on_delete=models.CASCADE, null=False)
     content = models.TextField(null=True, blank=True)
 
     def __str__(self):
