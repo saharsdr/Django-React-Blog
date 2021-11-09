@@ -9,7 +9,7 @@ class Post(models.Model):
     title = models.CharField(max_length=200, null=False, blank=True)
     author = models.CharField(max_length=200, null=False, blank=True)
     content = models.TextField(null=True, blank=True)
-    # thumbnail_pic=
+    thumbnail_pic = models.ImageField(null=True, blank=True)
     descriprion = models.TextField(null=True, blank=True)
     createdAt = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
