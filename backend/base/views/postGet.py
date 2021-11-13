@@ -3,14 +3,15 @@ from django.http import JsonResponse
 from rest_framework import serializers
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework.generics import ListAPIView
 
-from .models import Post, PostCategory
-from .posts import posts
+from ..models import Post, Category
 
-from .serailizers import PostCategorySerializer, PostSerializer
+
+from ..serailizers import CategorySerializer, PostSerializer, LikeSerializer
+
+
 # Create your views here.
-
-
 @api_view(['GET'])
 def getRoutes(request):
     routes = [
@@ -29,6 +30,7 @@ def getRoutes(request):
     return Response(routes)
 
 
+# Get List of Posts
 @api_view(['GET'])
 def getPosts(request):
     posts = Post.objects.all()
@@ -36,6 +38,7 @@ def getPosts(request):
     return Response(serailizer.data)
 
 
+# Get detail of a post
 @api_view(['GET'])
 def getPost(request, pk):
     post = Post.objects.get(_id=pk)
@@ -43,8 +46,18 @@ def getPost(request, pk):
     return Response(serializer.data)
 
 
+# Get Categories of a post
 @api_view(['GET'])
 def getPostCategories(request, pk):
-    categories = PostCategory.objects.all()
-    serializer = PostCategorySerializer(categories, many=True)
+    category = Category.objects.all().filter(post=pk)
+    serializer = CategorySerializer(category, many=True)
     return Response(serializer.data)
+
+
+# Get Likes of a post
+@api_view(['GET'])
+def getLikes(request, pk):
+    likes = Post.objects.all().filter(_id=pk)
+    serializer = LikeSerializer(likes, many=True)
+    return Response({'likes': len(serializer.data[0]['like'])})
+    # return Response({'likes': likes})

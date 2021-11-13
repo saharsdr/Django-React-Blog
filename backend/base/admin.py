@@ -1,10 +1,9 @@
 from django.contrib import admin
-from .models import PostCategory, Category, Comment, Follow, Like, Post
+from .models import Category, Comment, Follow, Post
 # Register your models here.
 
 admin.site.register(Post)
 admin.site.register(Category)
-admin.site.register(PostCategory)
 admin.site.register(Follow)
-admin.site.register(Like)
+# admin.site.register(Like)
 admin.site.register(Comment)

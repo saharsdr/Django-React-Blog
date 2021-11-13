@@ -9,12 +9,18 @@ function Single() {
   const history = useHistory();
   const url = history.location.pathname;
   const [post, setPost] = useState({});
+  const [postCategory, setPostCategory] = useState([]);
   useEffect(() => {
     async function fetchPost() {
       const { data } = await axios.get(`/api${url}/`);
       setPost(data);
     }
     fetchPost();
+    async function fetchPostCategory() {
+      const { data } = await axios.get(`/api${url}/categories/`);
+      setPostCategory(data);
+    }
+    fetchPostCategory();
   }, []);
 
   return (
@@ -34,15 +40,11 @@ function Single() {
         <p className="content">{post.content}</p>
         <div className="categories">
           <h4>
-            <Badge pill bg="secondary">
-              جدید
-            </Badge>{" "}
-            <Badge pill bg="secondary">
-              هوش مصنوعی
-            </Badge>{" "}
-            <Badge pill bg="secondary">
-              فرهنگ
-            </Badge>
+            {postCategory.map((item) => (
+              <Badge className="mx-2" pill bg="secondary">
+                {item.name}
+              </Badge>
+            ))}
           </h4>
         </div>
       </div>
