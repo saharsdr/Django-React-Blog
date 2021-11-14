@@ -1,6 +1,5 @@
 from django.urls import path, include
-from .views import postGet
-from .views import commentGet
+from .views import postGet, commentGet, user
 
 urlpatterns = [
     # Post
@@ -15,6 +14,8 @@ urlpatterns = [
     path('post/<str:pk>/likes/', postGet.getLikes, name="likes"),
 
 
+    path('users/', user.getUsers, name='users'),
+    path('users/<str:pk>/', user.getUser, name='user'),
 
 
 

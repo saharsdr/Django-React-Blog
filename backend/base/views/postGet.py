@@ -60,4 +60,3 @@ def getLikes(request, pk):
     likes = Post.objects.all().filter(_id=pk)
     serializer = LikeSerializer(likes, many=True)
     return Response({'likes': len(serializer.data[0]['like'])})
-    # return Response({'likes': likes})
