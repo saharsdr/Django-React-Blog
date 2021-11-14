@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
 from rest_framework import serializers
 from rest_framework.decorators import api_view
@@ -41,7 +41,7 @@ def getPosts(request):
 # Get detail of a post
 @api_view(['GET'])
 def getPost(request, pk):
-    post = Post.objects.get(_id=pk)
+    post = get_object_or_404(Post, _id=pk)
     serializer = PostSerializer(post, many=False)
     return Response(serializer.data)
 

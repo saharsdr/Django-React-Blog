@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import postGet, commentGet, user
+from .views import postGet, commentGet, user, category
 
 urlpatterns = [
     # Post
@@ -16,6 +16,9 @@ urlpatterns = [
 
     path('users/', user.getUsers, name='users'),
     path('users/<str:pk>/', user.getUser, name='user'),
+
+    path('categories/', category.getCategories, name='categories'),
+    path('categories/<str:pk>/', category.getCategoryPosts, name='category-posts'),
 
 
 
