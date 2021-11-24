@@ -1,5 +1,6 @@
 from django.urls import path, include
-from .views import postGet, commentGet, user, category
+
+from .views import postGet, commentGet, user, category, remove
 
 urlpatterns = [
     # Post
@@ -21,6 +22,18 @@ urlpatterns = [
     path('categories/<str:pk>/', category.getCategoryPosts, name='category-posts'),
 
 
+    # Remove
+    path('post/<str:pk>/remove/', remove.deletePost, name="post-remove"),
+    path('comment/<str:pk>/remove/',
+         remove.deleteComment, name="comment-remove"),
+    path('category/<str:pk>/remove/',
+         remove.deleteCategory, name="category-remove"),
+    path('post/<str:post_pk>/category/<str:category_pk>/remove/',
+         remove.deletePostCategory, name="post-category-remove"),
+    path('post/<str:post_pk>/like/<str:user_pk>/remove/',
+         remove.deletePostLike, name="post-like-remove"),
+    path('user/<str:pk>/remove/',
+         remove.deleteUser, name="user-remove"),
 
 
 

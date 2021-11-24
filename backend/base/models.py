@@ -6,6 +6,14 @@ from django.db.models.base import Model
 # Create your models here.
 
 
+class Category(models.Model):
+    _id = models.AutoField(primary_key=True, editable=False)
+    name = models.CharField(max_length=100, null=False)
+
+    def __str__(self):
+        return self.name
+
+
 class Post(models.Model):
     title = models.CharField(max_length=200, null=False, blank=True)
     author = models.CharField(max_length=200, null=False, blank=True)
@@ -15,20 +23,12 @@ class Post(models.Model):
     createdAt = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     _id = models.AutoField(primary_key=True, editable=False)
-    like = models.ManyToManyField(User, related_name="liker")
+    like = models.ManyToManyField(User, related_name="liker", blank=True)
+    category = models.ManyToManyField(
+        Category, blank=True)
 
     def __str__(self):
         return self.title
-
-
-class Category(models.Model):
-    _id = models.AutoField(primary_key=True, editable=False)
-    name = models.CharField(max_length=100, null=False)
-    post = models.ManyToManyField(
-        Post, related_name="post_set", blank=True)
-
-    def __str__(self):
-        return self.name
 
 
 class Comment(models.Model):
@@ -43,16 +43,6 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.content
-
-
-# class Like(models.Model):
-#     _id = models.AutoField(primary_key=True, editable=False)
-#     createdAt = models.DateTimeField(auto_now_add=True)
-#     post = models.ForeignKey(Post, on_delete=models.CASCADE)
-#     user = models.ForeignKey(User, on_delete=models.CASCADE)
-
-#     def __str__(self):
-#         return str(self.post)+" -- "+str(self.user)
 
 
 class Follow(models.Model):
