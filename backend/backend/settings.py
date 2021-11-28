@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'rest_framework',
 
     'base.apps.BaseConfig',
+    'auth.apps.BaseConfig',
 ]
 
 MIDDLEWARE = [

@@ -1,6 +1,6 @@
 from django.urls import path, include
 
-from .views import postGet, commentGet, user, category, remove
+from .views import postGet, commentGet, user, category, remove, create
 
 urlpatterns = [
     # Post
@@ -35,6 +35,25 @@ urlpatterns = [
     path('user/<str:pk>/remove/',
          remove.deleteUser, name="user-remove"),
 
+
+    # Create
+    path('post-create/', create.createPost, name='post-create'),
+    path('category-create/', create.createCategory, name='category-create'),
+    path('post/<str:pk>/comment-create/',
+         create.createPostComment, name='comment-create'),
+    path('post/<str:post_pk>/category/<str:category_pk>/create/',
+         create.createPostCategory, name='post-category-create'),
+    path('post/<str:post_pk>/like/<str:user_pk>/create/',
+         create.createPostLike, name='post-like-create'),
+
+
+
+
+    path('post-update/<str:pk>/', create.updatePost, name='post-update'),
+    path('category-update/<str:pk>/',
+         create.updateCategory, name='category-update'),
+    path('comment-update/<str:pk>/', create.updateComment, name='comment-update'),
+    #     path('user-update/<str:pk>/', create.updateUser, name='user-update'),
 
 
     path('api-auth/', include('rest_framework.urls')),

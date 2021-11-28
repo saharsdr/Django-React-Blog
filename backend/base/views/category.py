@@ -20,4 +20,5 @@ def getCategories(request):
 def getCategoryPosts(request, pk):
     categories = get_object_or_404(Category, _id=pk)
     serailizer = CategorySerializer(categories, many=False)
-    return Response({'posts': serailizer.data['post']})
+    return Response({'posts': serailizer.data})
+    # return Response({'posts': serailizer.data['post']})
