@@ -1,10 +1,31 @@
+from django.db.models import manager
 from django.shortcuts import render, get_object_or_404
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
+from django.contrib.auth.hashers import make_password
+from rest_framework import status
 
 from ..models import User
-from ..serializers import UserSerializer
+from ..serializers import UserSerializer, UserSerializerWithToken
+
+
+@api_view(['POST'])
+def registerUser(request):
+    data = request.data
+
+    try:
+        user = User.objects.create(
+            first_name=data['name'],
+            username=data['email'],
+            email=data['email'],
+            password=make_password(data['password'])
+        )
+        serializer = UserSerializerWithToken(user, many=False)
+        return Response(serializer.data)
+    except:
+        message = {'detail': 'User with this email alreade exists'}
+        return Response(message, status=status.HTTP_400_BAD_REQUEST)
 
 
 # Get List of Users
