@@ -123,7 +123,7 @@ def deletePostLike(request, post_pk, user_pk):
 
 # Get Likes of a post
 @api_view(['GET'])
-def getLikes(request, pk):
+def getPostLikes(request, pk):
     likes = Post.objects.all().filter(_id=pk)
     serializer = LikeSerializer(likes, many=True)
     return Response({'likes': len(serializer.data[0]['like'])})

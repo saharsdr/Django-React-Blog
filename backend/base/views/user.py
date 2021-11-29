@@ -1,10 +1,7 @@
 from django.shortcuts import render, get_object_or_404
-# from django.http import JsonResponse
-# from rest_framework import serializers
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
-# from rest_framework.generics import ListAPIView
 
 from ..models import User
 from ..serializers import UserSerializer
@@ -37,3 +34,12 @@ def deleteUser(request, pk):
         return Response({'status': '404'})
     item.delete()
     return Response({'status': '200'})
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getUserProfile(request):
+    user = request.user
+
+    serializer = UserSerializer(user, many=False)
+    return Response(serializer.data)

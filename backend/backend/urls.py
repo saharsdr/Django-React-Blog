@@ -19,11 +19,15 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('base.urls')),
-    
+    path('api/posts/', include('base.urls.post')),
+    path('api/comments/', include('base.urls.comment')),
+    path('api/category/', include('base.urls.category')),
+    path('api/users/', include('base.urls.user')),
+
+    path('api-auth/', include('rest_framework.urls')),
+
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
