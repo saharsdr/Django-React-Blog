@@ -1,8 +1,13 @@
 from django.urls import path, include
 
-from .views import postGet, commentGet, user, category, remove, create
+from .views import postGet, commentGet, user, category, remove, create, views
 
 urlpatterns = [
+    path('users/login/', views.MyTokenObtainPairView.as_view(),
+         name='token_obtain_pair'),
+    path('users/profile/', views.getUserProfile, name='users-profile'),
+
+
     # Post
     path('', postGet.getRoutes, name="routes"),
     path('posts/', postGet.getPosts, name="posts"),

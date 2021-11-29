@@ -4,7 +4,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.http import JsonResponse
 
-from ..serailizers import CategoryCreateSerializer, CommentCreateSerializer, PostCreateSerializer, PostSerializer, UserUpdateSerializer
+from ..serializers import CategoryCreateSerializer, CommentCreateSerializer, PostCreateSerializer, PostSerializer, UserSerializer
 
 from ..models import Post, Category, Comment
 
@@ -87,7 +87,7 @@ def updateCategory(request, pk):
 # @api_view(['POST'])
 # def updateUser(request, pk):
 #     user = User.objects.get(id=pk)
-#     serializer = UserUpdateSerializer(instance=user, data=request.data)
+#     serializer = UserSerializer(instance=user, data=request.data)
 #     if serializer.is_valid():
 #         serializer.save()
 #     return Response(serializer.data)

@@ -8,7 +8,7 @@ from rest_framework.generics import ListAPIView
 from ..models import Post, Category
 
 
-from ..serailizers import CategorySerializer, PostSerializer, LikeSerializer
+from ..serializers import CategorySerializer, PostSerializer, LikeSerializer
 
 
 # Create your views here.

@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework.generics import ListAPIView
 
 from ..models import Comment
-from ..serailizers import CommentSerializer
+from ..serializers import CommentSerializer
 
 
 # Get List of Comments of one post
