@@ -8,6 +8,26 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 
 from ..serializers import UserSerializer, UserSerializerWithToken
 
+# Create your views here.
+
+
+@api_view(['GET'])
+def getRoutes(request):
+    routes = [
+        '/api/posts/',
+        '/api/posts/<id>/',
+        '/api/posts/<id>/comments/',
+        '/api/posts/<id>/categories/',
+        '/api/posts/<id>/comments/create/',
+        '/api/posts/create/',
+        '/api/posts/<id>/edit/',
+        '/api/posts/<id>/remove/',
+        '/api/users/',
+        '/api/users/<id>/',
+        '/api/users/<id>/following/',
+    ]
+    return Response(routes)
+
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):

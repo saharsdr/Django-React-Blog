@@ -26,3 +26,14 @@ def getUser(request, pk):
     # user = User.objects.all().filter(id=pk)
     serailizer = UserSerializer(user, many=False)
     return Response(serailizer.data)
+
+
+# Delete a User
+@api_view(['GET'])
+def deleteUser(request, pk):
+    try:
+        item = User.objects.get(id=pk)
+    except User.DoesNotExist:
+        return Response({'status': '404'})
+    item.delete()
+    return Response({'status': '200'})
