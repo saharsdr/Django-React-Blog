@@ -10,6 +10,7 @@ function Single() {
   const url = history.location.pathname;
   const [post, setPost] = useState({});
   const [postCategory, setPostCategory] = useState([]);
+  const [postComments, setPostComments] = useState([]);
   useEffect(() => {
     async function fetchPost() {
       const { data } = await axios.get(`/api${url}/`);
@@ -17,25 +18,39 @@ function Single() {
     }
     fetchPost();
     async function fetchPostCategory() {
-      const { data } = await axios.get(`/api${url}/categories/`);
+      const { data } = await axios.get(`/api${url}/category/`);
       setPostCategory(data);
     }
     fetchPostCategory();
+    async function fetchPostComments() {
+      const { data } = await axios.get(`/api${url}/comments/`);
+      setPostComments(data);
+      console.log(postComments);
+      console.log(url);
+    }
+    fetchPostComments();
   }, []);
 
   return (
     <Div>
       <div className="author">
-        <h3>
-          {post.author} <Button variant="info">followed</Button>
-        </h3>
-        <span>{post.createdAt}</span>
+        <h3>{post.author}</h3>
+        <span>{post.date}</span>
       </div>
       <div className="article my-5">
         <h2>{post.title}</h2>
-        <Image src="holder.js/100px250" fluid />
+        {post.thumbnail_pic != null ? (
+          <Image src={post.thumbnail_pic} fluid />
+        ) : (
+          ""
+        )}
+
         <br />
-        <p className="kholase text-muted">{post.descriprion}</p>
+        {post.thumbnail_pic != null ? (
+          <p className="kholase text-muted">{post.descriprion}</p>
+        ) : (
+          ""
+        )}
 
         <p className="content">{post.content}</p>
         <div className="categories">
@@ -48,21 +63,21 @@ function Single() {
           </h4>
         </div>
       </div>
-      <br />
-      <div>
-        <h3>کامنت ها</h3>
-
-        {Array.apply(0, Array(10)).map(() => {
-          return (
-            <Comment
-              author={"author"}
-              comment={"miu comment contewava owsfdsdfsdf wow oow wwo woo"}
-              datetime={"1400-12-05 22:15"}
-            />
-          );
-        })}
-      </div>
+      {postComments.length > 0 && <TheComments comments={postComments} />}
     </Div>
+  );
+}
+
+function TheComments({ comments }) {
+  return (
+    <div>
+      <br />
+      <h3>کامنت ها</h3>
+
+      {comments.map((item) => {
+        return <Comment data={item} />;
+      })}
+    </div>
   );
 }
 
@@ -77,6 +92,10 @@ const Div = styled.div`
   align-items: center;
   flex-direction: column;
   min-height: 80vh;
+
+  & > * {
+    width: 100%;
+  }
 
   & p {
     padding: 2rem 3rem;

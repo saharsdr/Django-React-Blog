@@ -10,8 +10,8 @@ urlpatterns = [
     path('<str:pk>/', post_views.getPost, name="post-detail"),
 
 
-    path('<str:pk>/categories/',
-         post_views.getPostCategories, name="post-categories"),
+    path('<str:pk>/category/',
+         post_views.getPostCategory, name="post-category"),
 
 
     path('<str:pk>/comments/', comment_views.getComments, name="comments"),

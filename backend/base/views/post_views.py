@@ -27,7 +27,7 @@ def getPost(request, pk):
 
 # Get Categories of a post
 @api_view(['GET'])
-def getPostCategories(request, pk):
+def getPostCategory(request, pk):
     category = Category.objects.all().filter(post=pk)
     serializer = CategorySerializer(category, many=True)
     return Response(serializer.data)

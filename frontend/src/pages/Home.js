@@ -9,6 +9,7 @@ function Home() {
     async function fetchPosts() {
       const { data } = await axios.get("/api/posts/");
       setArticles(data);
+      console.log(data);
     }
     fetchPosts();
   }, []);

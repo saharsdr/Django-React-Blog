@@ -6,9 +6,22 @@ from .models import Post, Category, Comment
 
 
 class PostSerializer(serializers.ModelSerializer):
+    date = serializers.SerializerMethodField(read_only=True)
+
     class Meta:
         model = Post
-        fields = '__all__'
+        fields = ("_id",
+                  "date",
+                  "title",
+                  "author",
+                  "content",
+                  "thumbnail_pic",
+                  "descriprion",
+                  "user",
+                  "like")
+
+    def get_date(self, obj):
+        return obj.createdAt.strftime("%c")
 
 
 class PostCreateSerializer(serializers.ModelSerializer):
@@ -36,9 +49,18 @@ class CategoryCreateSerializer(serializers.ModelSerializer):
 
 
 class CommentSerializer(serializers.ModelSerializer):
+    date = serializers.SerializerMethodField(read_only=True)
+
     class Meta:
         model = Comment
-        fields = '__all__'
+        fields = ("_id",
+                  "date",
+                  "name",
+                  "content",
+                  "author")
+
+    def get_date(self, obj):
+        return obj.createdAt.strftime("%c")
 
 
 class CommentCreateSerializer(serializers.ModelSerializer):
