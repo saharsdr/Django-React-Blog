@@ -1,16 +1,17 @@
 import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 function Footer() {
   return (
-    <div>
-      <footer>
-        <Container>
-          <Row style={{ backgroundColor: "whitesmoke", marginTop: "2rem" }}>
-            <Col className="text-center py-3">Copyright &copy; Sahar Sadri</Col>
-          </Row>
-        </Container>
-      </footer>
+    <div className="footer">
+      <p className="pull-left">Copyright &copy; 2017 Your Website Name</p>
+      <p className="pull-right">
+        Mediumish Theme by
+        <Link target="_blank" to="https://www.wowthemes.net">
+          WowThemes.net
+        </Link>
+      </p>
+      <div className="clearfix"></div>
     </div>
   );
 }

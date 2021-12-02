@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import Article from "../components/Article";
 import { Row, Col } from "react-bootstrap";
 import axios from "axios";
+import Featured from "../sections/Featured";
+import RecentPosts from "../sections/RecentPosts";
+import Hero from "../components/Hero";
 
 function Home() {
   const [articles, setArticles] = useState([]);
@@ -16,13 +19,9 @@ function Home() {
 
   return (
     <div>
-      <Row xs={1} md={1} lg={2} className="g-5 my-2">
-        {articles.map((article) => (
-          <Col>
-            <Article post={article} key={article._id} />
-          </Col>
-        ))}
-      </Row>
+      <Hero />
+      <Featured articles={articles} />
+      <RecentPosts articles={articles} />
     </div>
   );
 }
