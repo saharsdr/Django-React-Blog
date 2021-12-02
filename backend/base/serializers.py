@@ -21,7 +21,7 @@ class PostSerializer(serializers.ModelSerializer):
                   "like")
 
     def get_date(self, obj):
-        return obj.createdAt.strftime("%c")
+        return obj.createdAt.strftime("%x")
 
 
 class PostCreateSerializer(serializers.ModelSerializer):
@@ -60,7 +60,7 @@ class CommentSerializer(serializers.ModelSerializer):
                   "author")
 
     def get_date(self, obj):
-        return obj.createdAt.strftime("%c")
+        return obj.createdAt.strftime("%x")
 
 
 class CommentCreateSerializer(serializers.ModelSerializer):

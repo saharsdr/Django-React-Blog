@@ -1,9 +1,3 @@
-/*
-Template Name:Mediumish
-Copyright:WowThemes.net,https://www.wowthemes.net
-Version:1.0.1
-License: https://www.wowthemes.net/freebies-license/
-*/
 body {
   padding-top: 5rem;
 }
@@ -334,6 +328,11 @@ blockquote {
   border-top-right-radius: 4px;
   border-top-left-radius: 4px;
 }
+.card .image-size-1 {
+  height: 237px !important;
+  width: 355px !important;
+  object-fit: cover;
+}
 ul.tags {
   list-style: none;
   padding-right: 0;
@@ -342,7 +341,10 @@ ul.tags {
 ul.tags li {
   display: inline-block;
   font-size: 0.9rem;
+  margin-left: 0.3rem;
+  margin-bottom: 0.7rem;
 }
+
 ul.tags li a {
   background: rgba(0, 0, 0, 0.05);
   color: rgba(0, 0, 0, 0.6);
@@ -454,4 +456,67 @@ ul.tags li a:hover {
   line-height: 22px;
   border-radius: 50%;
   font-size: 12px;
+}
+
+/* Comment */
+
+.comment__card {
+  border: none;
+  box-shadow: 0px 5px 6px 2px #e9ecef;
+  border-radius: 4px;
+}
+
+.comment__dots {
+  height: 4px;
+  width: 4px;
+  margin-bottom: 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.comment__badge {
+  padding: 7px;
+  padding-left: 9px;
+  padding-right: 16px;
+  box-shadow: 0px 2px 6px 2px #e9ecef;
+}
+
+.comment__user-img {
+  margin-top: 4px;
+}
+
+.comment__check-icon {
+  font-size: 17px;
+  color: #c3bfbf;
+  top: 1px;
+  position: relative;
+  margin-right: 3px;
+}
+
+.comment__form-check-input {
+  margin-top: 6px;
+  margin-right: -24px !important;
+  cursor: pointer;
+}
+
+.comment__form-check-input:focus {
+  box-shadow: none;
+}
+
+.comment__icons i {
+  margin-right: 8px;
+}
+
+.comment__reply {
+  margin-right: 12px;
+}
+
+.comment__reply small {
+  color: #b7b4b4;
+}
+
+.comment__reply small:hover {
+  color: green;
+  cursor: pointer;
 }

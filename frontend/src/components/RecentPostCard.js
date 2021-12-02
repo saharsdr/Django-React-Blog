@@ -1,26 +1,26 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function RecentPostCard() {
+function RecentPostCard({ post }) {
+  var post_image =
+    post.thumbnail_pic != null
+      ? post.thumbnail_pic
+      : "/images/placeholder2.jpg";
+
   return (
     <div className="card">
-      <Link to="post.html">
-        <img className="img-fluid" src="assets/img/demopic/5.jpg" alt="" />
+      <Link to={`/posts/${post._id}`}>
+        <img className="img-fluid image-size-1" src={post_image} alt="" />
       </Link>
       <div className="card-block">
         <h2 className="card-title">
-          <Link to="post.html">
-            Autumn doesn't have to be nostalgic, you know?
-          </Link>
+          <Link to={`/posts/${post._id}`}>{post.title}</Link>
         </h2>
-        <h4 className="card-text">
-          This is a longer card with supporting text below as a natural lead-in
-          to additional content. This content is a little bit longer.
-        </h4>
+        <h4 className="card-text">{post.descriprion}</h4>
         <div className="metafooter">
           <div className="wrapfooter">
             <span className="meta-footer-thumb">
-              <Link to="author.html">
+              <Link to={`/posts/${post._id}`}>
                 <img
                   className="author-thumb"
                   src="https://www.gravatar.com/avatar/e56154546cf4be74e393c62d1ae9f9d4?s=250&amp;d=mm&amp;r=x"
@@ -30,15 +30,15 @@ function RecentPostCard() {
             </span>
             <span className="author-meta">
               <span className="post-name">
-                <Link to="author.html">Sal</Link>
+                <Link to={`/posts/${post._id}`}>{post.author}</Link>
               </span>
               <br />
-              <span className="post-date">22 July 2017</span>
+              <span className="post-date">{post.date}</span>
               <span className="dot"></span>
               <span className="post-read">6 min read</span>
             </span>
             <span className="post-read-more">
-              <Link to="post.html" title="Read Story">
+              <Link to={`/posts/${post._id}`} title="Read Story">
                 <svg
                   className="svgIcon-use"
                   width="25"

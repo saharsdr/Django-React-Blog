@@ -1,17 +1,36 @@
 import React from "react";
-import { Card } from "react-bootstrap";
 function Comment({ data }) {
+  console.log(data);
   return (
-    <div className="my-5 w-100">
-      <Card className="text-right">
-        <Card.Header>
-          <a href={data.author}>{data.name}</a>
-        </Card.Header>
-        <Card.Body>
-          <Card.Text>{data.content}</Card.Text>
-        </Card.Body>
-        <Card.Footer className="text-muted">{data.date}</Card.Footer>
-      </Card>
+    <div className="comment__card p-3 mt-2">
+      <div className="d-flex justify-content-between align-items-center">
+        <div className="user d-flex flex-row align-items-center">
+          {" "}
+          <img
+            src="https://www.gravatar.com/avatar/e56154546cf4be74e393c62d1ae9f9d4?s=250&d=mm&r=x"
+            width="30"
+            className="comment__user-img rounded-circle mr-2"
+          />{" "}
+          <span>
+            <small className="font-weight-bold text-primary">{data.name}</small>{" "}
+            <small className="font-weight-bold">{data.content}</small>
+          </span>{" "}
+        </div>{" "}
+        <small>{data.date}</small>
+      </div>
+      <div className="action d-flex justify-content-between mt-2 align-items-center">
+        <div className="comment__reply px-4">
+          {" "}
+          <small>Remove</small> <span className="comment__dots"></span>{" "}
+          <small>Reply</small> <span className="comment__dots"></span>{" "}
+          <small>Translate</small>{" "}
+        </div>
+        <div className="comment__icons align-items-center">
+          {" "}
+          <i className="fa fa-star text-warning"></i>{" "}
+          <i className="fa fa-check-circle-o comment__check-icon"></i>{" "}
+        </div>
+      </div>
     </div>
   );
 }
