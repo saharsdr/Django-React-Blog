@@ -1,19 +1,33 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
 
 function Register() {
   const history = useHistory();
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
+  const [name, setName] = useState("");
   async function register() {
-    const { data } = await axios.post("/api/users-register/", {
-      password: pass,
-      username: email,
-    });
-    console.warn(data);
-    localStorage.setItem("user-info", JSON.stringify(data));
-    history.push("/add");
+    try {
+      await axios
+        .post("/api/users-register/", {
+          password: pass,
+          email: email,
+          name: name,
+        })
+        .catch(function (error) {
+          console.log(error.toJSON());
+          alert("مشکلی پیش آمده است. شاید ایمیل تکراری است.");
+        });
+    } catch (error) {
+      console.log(error);
+    }
+
+    // console.warn(data);
+    // localStorage.setItem("user-info", JSON.stringify(data));
+    // history.push("/add");
   }
   return (
     <>
@@ -24,7 +38,7 @@ function Register() {
             style={{ backgroundImage: `url("images/bg-01.jpg")` }}
           >
             <div className="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
-              <form className="login100-form validate-form" method="POST">
+              <div className="login100-form validate-form">
                 <span className="login100-form-title p-b-49">ثبت نام</span>
                 <div
                   className="wrap-input100 validate-input m-b-23"
@@ -32,6 +46,7 @@ function Register() {
                 >
                   <span className="label-input100">نام شما</span>
                   <input
+                    onChange={(e) => setName(e.target.value)}
                     className="input100"
                     type="text"
                     name="name"
@@ -44,6 +59,7 @@ function Register() {
                 >
                   <span className="label-input100">ایمیل</span>
                   <input
+                    onChange={(e) => setEmail(e.target.value)}
                     className="input100"
                     type="email"
                     name="email"
@@ -57,6 +73,7 @@ function Register() {
                 >
                   <span className="label-input100">رمز</span>
                   <input
+                    onChange={(e) => setPass(e.target.value)}
                     className="input100"
                     type="password"
                     name="password"
@@ -80,7 +97,7 @@ function Register() {
                     ورود
                   </Link>
                 </div>
-              </form>
+              </div>
             </div>
           </div>
         </div>
