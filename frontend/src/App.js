@@ -16,6 +16,7 @@ import { Switch, Route, useLocation } from "react-router-dom";
 import Author from "./pages/Author";
 import CategoryBase from "./pages/CategoryBase";
 import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 function App() {
   const [articles, setArticles] = useState([]);
@@ -47,6 +48,9 @@ function App() {
           </Route>
           <Route path="/login">
             <Login />
+          </Route>
+          <Route path="/register">
+            <Register />
           </Route>
         </Switch>
         <Footer />

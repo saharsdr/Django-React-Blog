@@ -12,7 +12,7 @@ urlpatterns = [
 
     path('/<str:pk>/posts/', user_views.getUserPosts, name='user-depoststail'),
 
-    path('/login/', views.MyTokenObtainPairView.as_view(), name='user-login'),
+    path('-login/', views.MyTokenObtainPairView.as_view(), name='user-login'),
 
     path('-register/', user_views.registerUser, name="user-register")
 ]

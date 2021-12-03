@@ -3,6 +3,10 @@ import { Navbar, Container, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 function Header() {
+  function logout() {
+    // localStorage.setItem("user-info", "");
+    localStorage.removeItem("user-info");
+  }
   return (
     <>
       <nav
@@ -44,13 +48,18 @@ function Header() {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link class="nav-link" to="/">
+                <Link class="nav-link" to="/register">
                   ثبت نام
                 </Link>
               </li>
               <li className="nav-item">
-                <Link class="nav-link" to="/">
+                <Link class="nav-link" to="/login">
                   ورود
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link onClick={logout} class="nav-link" to="/login">
+                  خروج
                 </Link>
               </li>
             </ul>

@@ -31,9 +31,9 @@ function Article({ post, category, comments_len }) {
                 </Link>
               </div>
               <div className="col-md-10">
-                <a className="link-dark" href="author.html">
+                <Link className="link-dark" to={`users/${post.user}`}>
                   {post.author}
-                </a>
+                </Link>
                 {/* <a href="#" className="btn follow">
                   دنبال کنید
                 </a>
