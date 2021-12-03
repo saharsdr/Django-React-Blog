@@ -4,7 +4,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from ..models import Category
-from ..serializers import CategoryCreateSerializer, CategorySerializer
+from ..serializers import CategoryCreateSerializer, CategorySerializer, PostSerializer
 
 
 # Get List of Category
@@ -19,8 +19,9 @@ def getCategories(request):
 @api_view(['GET'])
 def getCategoryPosts(request, pk):
     categories = get_object_or_404(Category, _id=pk)
-    serailizer = CategorySerializer(categories, many=False)
-    return Response({'posts': serailizer.data})
+    serailizer = PostSerializer(categories.post_set.all(), many=True)
+
+    return Response(serailizer.data)
     # return Response({'posts': serailizer.data['post']})
 
 

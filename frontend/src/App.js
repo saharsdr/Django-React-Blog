@@ -17,6 +17,7 @@ import Author from "./pages/Author";
 
 function App() {
   const [articles, setArticles] = useState([]);
+  const [category, setCategory] = useState([]);
   useEffect(() => {
     async function fetchPosts() {
       const { data } = await axios.get("/api/posts/");
