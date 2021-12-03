@@ -1,6 +1,10 @@
 import React from "react";
 function Comment({ data }) {
   console.log(data);
+  var author_varify =
+    data.author != null
+      ? "fa fa-check-circle-o comment_check-icon text-primary"
+      : "fa fa-check-circle-o comment_check-icon text-muted";
   return (
     <div className="comment__card p-3 mt-2">
       <div className="d-flex justify-content-between align-items-center">
@@ -27,8 +31,7 @@ function Comment({ data }) {
         </div>
         <div className="comment__icons align-items-center">
           {" "}
-          <i className="fa fa-star text-warning"></i>{" "}
-          <i className="fa fa-check-circle-o comment__check-icon"></i>{" "}
+          <i className={author_varify}></i>{" "}
         </div>
       </div>
     </div>

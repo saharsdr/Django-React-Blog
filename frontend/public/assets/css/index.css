@@ -520,3 +520,131 @@ ul.tags li a:hover {
   color: green;
   cursor: pointer;
 }
+
+/* New Comment */
+
+.comments h2 {
+  color: #111;
+  font: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.comments h2::after {
+  content: "";
+  display: block;
+  width: 2em;
+  height: 0.25em;
+  background: #111;
+  margin-top: 0.5em;
+}
+
+.comments {
+  /* position: relative; */
+  width: 100%;
+  background: #fff;
+  margin: auto;
+  padding: 27px 0;
+  box-sizing: border-box;
+  top: 5em;
+}
+
+.comments::after {
+  content: " ";
+  display: table;
+  clear: both;
+}
+
+.comments__form-info,
+.comments__form-text {
+  width: 100%;
+  margin: 0;
+}
+
+.comments__form-info {
+  float: right;
+}
+.comments__form-text {
+  float: left;
+}
+
+.comments__form-field {
+  position: relative;
+}
+.comments__form-label {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  right: 0;
+  font: 700 1.125em "Open Sans", "Helvetica Neue", "Arial", "sans-serif";
+  cursor: text;
+  pointer-events: none;
+}
+
+.comments__form-label-text {
+  display: block;
+  transform: translateY(100%);
+  opacity: 0;
+  transition-duration: 0.5s;
+  transition-property: transform, opacity;
+}
+.comments__form-input:focus::-webkit-input-placeholder {
+  color: transparent;
+}
+.comments__form-input:focus + .comments__form-label .comments__form-label-text {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.comments__form-label::after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  background: #111;
+  bottom: 1em;
+  transform: scaleX(0);
+  transform-origin: right; //
+  transition: transform 0.5s;
+}
+
+.comments__form-input:focus + .comments__form-label::after {
+  transform: scaleX(1);
+}
+
+.comments__form-input {
+  position: relative;
+  width: 100%;
+  padding: 0.8rem 0;
+  border: 0;
+  outline: 0;
+  margin: 0.8rem 0;
+  border-bottom: 3px solid #ddd;
+  vertical-align: bottom;
+  font: 400 1rem;
+}
+
+.comments__form-textarea {
+  min-width: 100%;
+  max-width: 100%;
+  min-height: 168px;
+}
+
+.comments__form-submit {
+  padding: 0.5em;
+  margin: 1em 0;
+  background: none;
+  border: 3px solid #111;
+  font: 700 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  opacity: 0.25;
+}
+
+.comments__form-submit:hover {
+  opacity: 1;
+}
