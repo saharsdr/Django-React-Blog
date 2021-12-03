@@ -13,6 +13,7 @@ import axios from "axios";
 
 // Import Router
 import { Switch, Route, useLocation } from "react-router-dom";
+import Author from "./pages/Author";
 
 function App() {
   const [articles, setArticles] = useState([]);
@@ -36,6 +37,9 @@ function App() {
           </Route>
           <Route path="/posts/:id">
             <Single articles={articles} />
+          </Route>
+          <Route path="/users/:id">
+            <Author />
           </Route>
         </Switch>
         <Footer />

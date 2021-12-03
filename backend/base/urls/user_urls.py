@@ -10,6 +10,8 @@ urlpatterns = [
 
     path('/<str:pk>/', user_views.getUser, name='user-detail'),
 
+    path('/<str:pk>/posts/', user_views.getUserPosts, name='user-depoststail'),
+
     path('/login/', views.MyTokenObtainPairView.as_view(), name='user-login'),
 
     path('-register/', user_views.registerUser, name="user-register")

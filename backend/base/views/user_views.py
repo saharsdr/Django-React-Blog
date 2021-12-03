@@ -6,8 +6,8 @@ from rest_framework.response import Response
 from django.contrib.auth.hashers import make_password
 from rest_framework import status
 
-from ..models import User
-from ..serializers import UserSerializer, UserSerializerWithToken
+from ..models import User, Post
+from ..serializers import UserSerializer, UserSerializerWithToken, PostSerializer
 
 
 @api_view(['POST'])
@@ -40,9 +40,23 @@ def getUsers(request):
 # Get Detail of a user
 @api_view(['GET'])
 def getUser(request, pk):
-    user = get_object_or_404(User, id=pk)
+    try:
+        user = User.objects.get(id=pk)
+    except User.DoesNotExist:
+        return Response({'status': '404'})
     # user = User.objects.all().filter(id=pk)
     serailizer = UserSerializer(user, many=False)
+    return Response(serailizer.data)
+
+
+@api_view(['GET'])
+def getUserPosts(request, pk):
+    try:
+        posts = Post.objects.all().filter(user=pk)
+    except Post.DoesNotExist:
+        return Response({'status': '404'})
+
+    serailizer = PostSerializer(posts, many=True)
     return Response(serailizer.data)
 
 

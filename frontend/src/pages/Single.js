@@ -4,7 +4,6 @@ import Comment from "../components/Comment";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import Article from "../sections/Article";
-import Related from "../sections/Related";
 import Comments from "../sections/Comments";
 
 function Single({ articles }) {
@@ -27,9 +26,6 @@ function Single({ articles }) {
     async function fetchPostComments() {
       const { data } = await axios.get(`/api${url}/comments/`);
       setPostComments(data);
-      console.log(postComments.length);
-      console.log(postComments[0]);
-      console.log(url);
     }
     fetchPostComments();
   }, []);
