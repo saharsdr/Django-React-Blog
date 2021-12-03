@@ -15,6 +15,7 @@ import axios from "axios";
 import { Switch, Route, useLocation } from "react-router-dom";
 import Author from "./pages/Author";
 import CategoryBase from "./pages/CategoryBase";
+import Login from "./pages/Login";
 
 function App() {
   const [articles, setArticles] = useState([]);
@@ -43,6 +44,9 @@ function App() {
           </Route>
           <Route path="/users/:id">
             <Author />
+          </Route>
+          <Route path="/login">
+            <Login />
           </Route>
         </Switch>
         <Footer />
