@@ -2,7 +2,7 @@ import React from "react";
 import ShareArticle from "../components/ShareArticle";
 import { Link } from "react-router-dom";
 
-function Article({ post, category }) {
+function Article({ post, category, comments_len }) {
   var post_image =
     post.thumbnail_pic != null
       ? post.thumbnail_pic
@@ -12,7 +12,7 @@ function Article({ post, category }) {
       <div className="row">
         {/* <!-- Begin Fixed Left Share --> */}
         <div className="col-md-2 col-xs-12">
-          <ShareArticle />
+          <ShareArticle comments_len={comments_len} />
         </div>
         {/* <!-- End Fixed Left Share --> */}
 
@@ -22,13 +22,13 @@ function Article({ post, category }) {
             {/* <!-- Begin Top Meta --> */}
             <div className="row post-top-meta">
               <div className="col-md-2">
-                <a href="author.html">
+                <Link to={`users/${post.user}`}>
                   <img
                     className="author-thumb"
                     src="https://www.gravatar.com/avatar/e56154546cf4be74e393c62d1ae9f9d4?s=250&amp;d=mm&amp;r=x"
                     alt="Sal"
                   />
-                </a>
+                </Link>
               </div>
               <div className="col-md-10">
                 <a className="link-dark" href="author.html">
@@ -43,9 +43,16 @@ function Article({ post, category }) {
                   professional premium themes, templates, plugins, scripts since
                   2012.
                 </span> */}
-                <span className="post-date">{post.date}</span>
+                <span className="post-date">
+                  {"   "}
+                  {post.date}
+                  {"   "}
+                </span>
                 <span className="dot"></span>
-                <span className="post-read">6 min read</span>
+                <span className="post-read">
+                  {"   "}
+                  {post.like != null ? post.like.length : 0} لایک
+                </span>
               </div>
             </div>
             {/* <!-- End Top Menta --> */}
@@ -66,7 +73,7 @@ function Article({ post, category }) {
             <ul className="tags">
               {category.map((item) => (
                 <li>
-                  <Link to="#">{item.name}</Link>
+                  <Link to={`/category/${item._id}`}>{item.name}</Link>
                 </li>
               ))}
             </ul>

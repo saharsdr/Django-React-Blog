@@ -32,10 +32,14 @@ function Single({ articles }) {
 
   return (
     <div>
-      <Article post={post} category={postCategory} />
+      <Article
+        post={post}
+        category={postCategory}
+        comments_len={postComments.length}
+      />
       <div className="hideshare"></div>
-      {postComments.length > 0 && <Comments comments={postComments} />}
 
+      <Comments id="comments" comments={postComments} />
       {/* <Related articles={articles} /> */}
     </div>
   );

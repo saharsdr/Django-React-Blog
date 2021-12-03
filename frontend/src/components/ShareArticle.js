@@ -1,6 +1,6 @@
 import React from "react";
 
-function ShareArticle() {
+function ShareArticle({ comments_len }) {
   return (
     <div className="share">
       <p>اشتراک گذاری</p>
@@ -37,11 +37,11 @@ function ShareArticle() {
         </li>
       </ul>
       <div className="sep"></div>
-      <p>Talk</p>
+      <p>نظرات</p>
       <ul>
         <li>
           <a href="#comments">
-            42
+            {comments_len}
             <br />
             <svg
               className="svgIcon-use"

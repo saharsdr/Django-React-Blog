@@ -14,15 +14,14 @@ import axios from "axios";
 // Import Router
 import { Switch, Route, useLocation } from "react-router-dom";
 import Author from "./pages/Author";
+import CategoryBase from "./pages/CategoryBase";
 
 function App() {
   const [articles, setArticles] = useState([]);
-  const [category, setCategory] = useState([]);
   useEffect(() => {
     async function fetchPosts() {
       const { data } = await axios.get("/api/posts/");
       setArticles(data);
-      console.log(data);
     }
     fetchPosts();
   }, []);
@@ -35,6 +34,9 @@ function App() {
         <Switch location={location} key={location.pathname}>
           <Route path="/" exact>
             <Home articles={articles} />
+          </Route>
+          <Route path="/category/:id" exact>
+            <CategoryBase />
           </Route>
           <Route path="/posts/:id">
             <Single articles={articles} />
