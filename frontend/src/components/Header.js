@@ -33,7 +33,7 @@ function Header() {
         <div className="container">
           {/* <!-- Begin Logo --> */}
           <Link className="navbar-brand" to="index.html">
-            <img src="%PUBLIC_URL%/../assets/img/logo.png" alt="logo" />
+            <img src="/images/logo.png" alt="logo" />
           </Link>
           {/* <!-- End Logo --> */}
           <div className="collapse navbar-collapse" id="navbarsExampleDefault">

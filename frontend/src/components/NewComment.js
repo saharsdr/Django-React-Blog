@@ -47,7 +47,7 @@ function NewComment({ postId, setRefresh, refresh }) {
             />
             <label
               className="comments__form-label"
-              for="comments__form-label-name"
+              htmlFor="comments__form-label-name"
             >
               <span className="comments__form-label-text">نام</span>
             </label>
@@ -68,7 +68,7 @@ function NewComment({ postId, setRefresh, refresh }) {
             ></textarea>
             <label
               className="comments__form-label"
-              for="comments__form-label-text"
+              htmlFor="comments__form-label-text"
             >
               <span className="comments__form-label-text">نظر شما</span>
             </label>
