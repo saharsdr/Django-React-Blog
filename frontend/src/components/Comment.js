@@ -1,11 +1,20 @@
+import axios from "axios";
 import React from "react";
-function Comment({ data }) {
+import { RemoveComment } from "../actions/commentAction";
+import getUserInfo from "../actions/getUserInfo";
+function Comment({ data, key, setRefresh, refresh, postAuthor }) {
+  const userInfo = getUserInfo();
+  function handlerRemoveComment() {
+    RemoveComment(data._id);
+    setRefresh(!refresh);
+  }
+
   var author_varify =
     data.author != null
       ? "fa fa-check-circle-o comment_check-icon text-primary"
       : "fa fa-check-circle-o comment_check-icon text-muted";
   return (
-    <div className="comment__card p-3 mt-2">
+    <div className="comment__card p-3 mt-2" key={key}>
       <div className="d-flex justify-content-between align-items-center">
         <div className="user d-flex flex-row align-items-center">
           {" "}
@@ -24,7 +33,15 @@ function Comment({ data }) {
       <div className="action d-flex justify-content-between mt-2 align-items-center">
         <div className="comment__reply px-4">
           {" "}
-          <small>Remove</small> <span className="comment__dots"></span>{" "}
+          {userInfo &&
+          (userInfo.id === data.author || userInfo.id === postAuthor) ? (
+            <>
+              <small onClick={handlerRemoveComment}>Remove</small>{" "}
+              <span className="comment__dots"></span>
+            </>
+          ) : (
+            ""
+          )}
           <small>Reply</small> <span className="comment__dots"></span>{" "}
           <small>Translate</small>{" "}
         </div>

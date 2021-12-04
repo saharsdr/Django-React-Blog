@@ -2,7 +2,7 @@ import React from "react";
 import Comment from "../components/Comment";
 import NewComment from "../components/NewComment";
 
-function Comments({ comments, postId, setRefresh, refresh }) {
+function Comments({ postAuthor, comments, postId, setRefresh, refresh }) {
   return (
     <>
       <div className="container mt-5">
@@ -20,7 +20,13 @@ function Comments({ comments, postId, setRefresh, refresh }) {
                 </div>
 
                 {comments.map((item) => (
-                  <Comment data={item} key={item._id} />
+                  <Comment
+                    postAuthor={postAuthor}
+                    setRefresh={setRefresh}
+                    refresh={refresh}
+                    data={item}
+                    key={item._id}
+                  />
                 ))}
               </>
             )}

@@ -48,6 +48,7 @@ function Single({ articles }) {
         id="comments"
         comments={postComments}
         postId={post._id}
+        postAuthor={post.user}
       />
       {/* <Related articles={articles} /> */}
     </div>

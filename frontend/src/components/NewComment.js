@@ -1,16 +1,27 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import getUserInfo from "../actions/getUserInfo";
 
 function NewComment({ postId, setRefresh, refresh }) {
   const [content, setContent] = useState("");
+
   const [name, setName] = useState("");
+  const userInfo = getUserInfo();
+  let author;
   async function newComment() {
     if (content === "" || name === "") {
       alert("لطفا فیلدها را پر کنید.");
       return;
     }
     try {
+      if (userInfo) {
+        setName(userInfo.name);
+        author = userInfo.id;
+      } else {
+        author = null;
+      }
       await axios.post(`/api/posts/${postId}/comment-create/`, {
+        author: author,
         post: postId,
         content: content,
         name: name,
@@ -28,6 +39,7 @@ function NewComment({ postId, setRefresh, refresh }) {
     setContent("");
     setName("");
   }
+
   return (
     <div className="comments">
       <h2>نظر جدید</h2>
@@ -36,7 +48,6 @@ function NewComment({ postId, setRefresh, refresh }) {
         <div className="comments__form-info">
           <div className="comments__form-field">
             <input
-              required
               onChange={(e) => setName(e.target.value)}
               id="comments__form-label-name"
               name="name"
