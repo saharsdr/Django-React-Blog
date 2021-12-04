@@ -18,6 +18,9 @@ import CategoryBase from "./pages/CategoryBase";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import NewPost from "./pages/NewPost";
+import AllUsers from "./pages/Admin/AllUsers";
+import AllCategory from "./pages/Admin/AllCategory";
+import AllPosts from "./pages/Admin/AllPosts";
 
 function App() {
   const [postDelet, setPostDelete] = useState(true);
@@ -56,6 +59,19 @@ function App() {
           </Route>
           <Route path="/register">
             <Register />
+          </Route>
+          <Route path="/admin/users-list">
+            <AllUsers />
+          </Route>
+          <Route path="/admin/posts-list">
+            <AllPosts
+              setPostDelete={setPostDelete}
+              postDelet={postDelet}
+              posts={articles}
+            />
+          </Route>
+          <Route path="/admin/category-list">
+            <AllCategory />
           </Route>
         </Switch>
         <Footer />

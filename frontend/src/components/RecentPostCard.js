@@ -20,7 +20,7 @@ function RecentPostCard({ post }) {
         <div className="metafooter">
           <div className="wrapfooter">
             <span className="meta-footer-thumb">
-              <Link to={`/posts/${post._id}`}>
+              <Link to={`/users/${post.user}`}>
                 <img
                   className="author-thumb"
                   src="https://www.gravatar.com/avatar/e56154546cf4be74e393c62d1ae9f9d4?s=250&amp;d=mm&amp;r=x"

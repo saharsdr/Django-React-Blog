@@ -15,7 +15,8 @@ function Login() {
     });
     console.warn(data);
     localStorage.setItem("user-info", JSON.stringify(data));
-    history.push("/add");
+    let path = `/users/${data.id}`;
+    history.push(path);
   }
 
   return (

@@ -33,7 +33,7 @@ function Header() {
         </button>
         <div className="container">
           {/* <!-- Begin Logo --> */}
-          <Link className="navbar-brand" to="index.html">
+          <Link className="navbar-brand float-left" to="/">
             <img src="/images/logo.png" alt="logo" />
           </Link>
           {/* <!-- End Logo --> */}

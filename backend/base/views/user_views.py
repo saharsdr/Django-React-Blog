@@ -29,10 +29,10 @@ def registerUser(request):
 
 
 # Get List of Users
+# @permission_classes([IsAdminUser])
 @api_view(['GET'])
-@permission_classes([IsAdminUser])
 def getUsers(request):
-    users = User.objects.all().order_by('-createdAt')
+    users = User.objects.all()
     serailizer = UserSerializer(users, many=True)
     return Response(serailizer.data)
 
@@ -52,7 +52,7 @@ def getUser(request, pk):
 @api_view(['GET'])
 def getUserPosts(request, pk):
     try:
-        posts = Post.objects.all().filter(user=pk)
+        posts = Post.objects.all().filter(user=pk).order_by('-createdAt')
     except Post.DoesNotExist:
         return Response({'status': '404'})
 
@@ -71,8 +71,8 @@ def deleteUser(request, pk):
     return Response({'status': '200'})
 
 
+# @permission_classes([IsAuthenticated])
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
 def getUserProfile(request):
     user = request.user
 
