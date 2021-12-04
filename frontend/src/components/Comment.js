@@ -1,6 +1,5 @@
 import React from "react";
 function Comment({ data }) {
-  console.log(data);
   var author_varify =
     data.author != null
       ? "fa fa-check-circle-o comment_check-icon text-primary"

@@ -8,7 +8,7 @@ function AuthorPosts({ posts }) {
         <div className="container">
           <div className="listrecent listrelated">
             {posts.map((post) => (
-              <AuthorPost post={post} />
+              <AuthorPost post={post} key={post._id} />
             ))}
             {posts.length === 0
               ? "این نویسنده تا به حال متنی منتشر نکرده است."

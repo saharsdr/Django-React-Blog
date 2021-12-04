@@ -9,6 +9,8 @@ import Comments from "../sections/Comments";
 function Single({ articles }) {
   const history = useHistory();
   const url = history.location.pathname;
+
+  const [refresh, setRefresh] = useState(true);
   const [post, setPost] = useState({});
   const [postCategory, setPostCategory] = useState([]);
   const [postComments, setPostComments] = useState([]);
@@ -22,13 +24,14 @@ function Single({ articles }) {
       const { data } = await axios.get(`/api${url}/category/`);
       setPostCategory(data);
     }
-    fetchPostCategory();
+  }, []);
+  useEffect(() => {
     async function fetchPostComments() {
       const { data } = await axios.get(`/api${url}/comments/`);
       setPostComments(data);
     }
     fetchPostComments();
-  }, []);
+  }, [refresh]);
 
   return (
     <div>
@@ -39,7 +42,13 @@ function Single({ articles }) {
       />
       <div className="hideshare"></div>
 
-      <Comments id="comments" comments={postComments} />
+      <Comments
+        refresh={refresh}
+        setRefresh={setRefresh}
+        id="comments"
+        comments={postComments}
+        postId={post._id}
+      />
       {/* <Related articles={articles} /> */}
     </div>
   );

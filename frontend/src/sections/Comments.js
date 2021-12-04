@@ -2,14 +2,17 @@ import React from "react";
 import Comment from "../components/Comment";
 import NewComment from "../components/NewComment";
 
-function Comments({ comments }) {
-  console.log(comments);
+function Comments({ comments, postId, setRefresh, refresh }) {
   return (
     <>
       <div className="container mt-5">
         <div className="row d-flex justify-content-center">
           <div className="col-md-8">
-            <NewComment />
+            <NewComment
+              postId={postId}
+              setRefresh={setRefresh}
+              refresh={refresh}
+            />
             {comments.length > 0 && (
               <>
                 <div className="headings d-flex justify-content-between align-items-center my-3 mb-3">
