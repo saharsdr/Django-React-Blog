@@ -12,7 +12,7 @@ from ..models import Post, Category
 # Get List of Posts
 @api_view(['GET'])
 def getPosts(request):
-    posts = Post.objects.all()
+    posts = Post.objects.all().order_by('-createdAt')
     serailizer = PostSerializer(posts, many=True)
     return Response(serailizer.data)
 

@@ -9,7 +9,7 @@ from ..serializers import CommentCreateSerializer, CommentSerializer
 # Get List of Comments of one post
 @api_view(['GET'])
 def getComments(request, pk):
-    comments = Comment.objects.all().filter(post=pk)
+    comments = Comment.objects.all().filter(post=pk).order_by('-createdAt')
     serailizer = CommentSerializer(comments, many=True)
     return Response(serailizer.data)
 

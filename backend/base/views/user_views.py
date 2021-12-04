@@ -32,7 +32,7 @@ def registerUser(request):
 @api_view(['GET'])
 @permission_classes([IsAdminUser])
 def getUsers(request):
-    users = User.objects.all()
+    users = User.objects.all().order_by('-createdAt')
     serailizer = UserSerializer(users, many=True)
     return Response(serailizer.data)
 
