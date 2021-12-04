@@ -4,12 +4,12 @@ import { Link } from "react-router-dom";
 function Footer() {
   return (
     <div className="footer">
-      <p className="pull-left">Copyright &copy; 2017 Your Website Name</p>
+      <p className="pull-left">Copyright &copy; 2021 My</p>
       <p className="pull-right">
-        Mediumish Theme by
-        <Link target="_blank" to="https://www.wowthemes.net">
-          WowThemes.net
-        </Link>
+        My Theme by{" "}
+        <a target="_blank" href="">
+          Sahar Sadri
+        </a>
       </p>
       <div className="clearfix"></div>
     </div>

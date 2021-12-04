@@ -22,7 +22,7 @@ function Article({ post, category, comments_len }) {
             {/* <!-- Begin Top Meta --> */}
             <div className="row post-top-meta">
               <div className="col-md-2">
-                <Link to={`users/${post.user}`}>
+                <Link to={`../users/${post.user}`}>
                   <img
                     className="author-thumb"
                     src="https://www.gravatar.com/avatar/e56154546cf4be74e393c62d1ae9f9d4?s=250&amp;d=mm&amp;r=x"
@@ -31,7 +31,7 @@ function Article({ post, category, comments_len }) {
                 </Link>
               </div>
               <div className="col-md-10">
-                <Link className="link-dark" to={`users/${post.user}`}>
+                <Link className="link-dark" to={`../users/${post.user}`}>
                   {post.author}
                 </Link>
                 {/* <a href="#" className="btn follow">

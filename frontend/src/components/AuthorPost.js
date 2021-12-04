@@ -1,7 +1,18 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
+import getUserInfo from "../actions/getUserInfo";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-function AuthorPost({ post }) {
+import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
+import { RemovePost } from "../actions/postAction";
+
+function AuthorPost({ post, postDelet, setPostDelete }) {
+  const userInfo = getUserInfo();
+  function handlerRemovePost() {
+    RemovePost(post._id);
+    setPostDelete(!postDelet);
+  }
   return (
     <div className="authorpostbox">
       <div className="card">
@@ -13,9 +24,34 @@ function AuthorPost({ post }) {
           />
         </Link>
         <div className="card-block">
-          <h2 className="card-title">
-            <Link to={`/posts/${post._id}`}>{post.title}</Link>
-          </h2>
+          <div className="d-flex justify-content-between">
+            <h2 className="card-title">
+              <Link to={`/posts/${post._id}`}>{post.title}</Link>
+            </h2>
+            {userInfo && (userInfo.isAdmin || userInfo.id === post.user) ? (
+              <div className="icons">
+                <FontAwesomeIcon
+                  icon={faEdit}
+                  color="gray"
+                  size="sm"
+                  className="mx-2"
+                  style={{ cursor: "pointer" }}
+                />
+                {"  "}
+                <FontAwesomeIcon
+                  onClick={handlerRemovePost}
+                  icon={faTrash}
+                  color="red"
+                  size="sm"
+                  style={{ cursor: "pointer" }}
+                />
+                {"  "}
+              </div>
+            ) : (
+              ""
+            )}
+          </div>
+
           <h4 className="card-text">{post.descriprion}</h4>
           <div className="metafooter">
             <div className="wrapfooter">

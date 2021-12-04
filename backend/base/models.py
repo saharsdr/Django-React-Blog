@@ -21,7 +21,7 @@ class Post(models.Model):
     thumbnail_pic = models.ImageField(null=True, blank=True)
     descriprion = models.TextField(null=True, blank=True)
     createdAt = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     _id = models.AutoField(primary_key=True, editable=False)
     like = models.ManyToManyField(User, related_name="liker", blank=True)
     category = models.ManyToManyField(

@@ -34,7 +34,9 @@ function Comment({ data, key, setRefresh, refresh, postAuthor }) {
         <div className="comment__reply px-4">
           {" "}
           {userInfo &&
-          (userInfo.id === data.author || userInfo.id === postAuthor) ? (
+          (userInfo.id === data.author ||
+            userInfo.id === postAuthor ||
+            userInfo.isAdmin) ? (
             <>
               <small onClick={handlerRemoveComment}>Remove</small>{" "}
               <span className="comment__dots"></span>

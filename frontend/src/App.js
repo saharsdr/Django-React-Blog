@@ -17,8 +17,10 @@ import Author from "./pages/Author";
 import CategoryBase from "./pages/CategoryBase";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import NewPost from "./pages/NewPost";
 
 function App() {
+  const [postDelet, setPostDelete] = useState(true);
   const [articles, setArticles] = useState([]);
   useEffect(() => {
     async function fetchPosts() {
@@ -26,7 +28,7 @@ function App() {
       setArticles(data);
     }
     fetchPosts();
-  }, []);
+  }, [postDelet]);
   const location = useLocation();
   return (
     <>
@@ -44,7 +46,10 @@ function App() {
             <Single articles={articles} />
           </Route>
           <Route path="/users/:id">
-            <Author />
+            <Author postDelet={postDelet} setPostDelete={setPostDelete} />
+          </Route>
+          <Route path="/new-post">
+            <NewPost />
           </Route>
           <Route path="/login">
             <Login />

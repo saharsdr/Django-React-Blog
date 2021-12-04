@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar, Container, Nav } from "react-bootstrap";
+import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import getUserInfo from "../actions/getUserInfo";
 
@@ -7,6 +7,7 @@ function Header() {
   function logout() {
     // localStorage.setItem("user-info", "");
     localStorage.removeItem("user-info");
+    alert("شما از حساب خود خارج شدید.");
   }
   const userLogin = getUserInfo();
   return (
@@ -52,16 +53,29 @@ function Header() {
 
               {userLogin ? (
                 <>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="">
-                      {userLogin.name}
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link onClick={logout} className="nav-link" to="/login">
-                      خروج
-                    </Link>
-                  </li>
+                  <NavDropdown
+                    title={`${userLogin.name}`}
+                    id="basic-nav-dropdown"
+                  >
+                    <NavDropdown.Item>
+                      <Link className="nav-link" to={`/users/${userLogin.id}`}>
+                        پست های من
+                      </Link>
+                    </NavDropdown.Item>
+
+                    <NavDropdown.Item>
+                      <Link className="nav-link" to={`/new-post`}>
+                        پست جدید
+                      </Link>
+                    </NavDropdown.Item>
+
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item>
+                      <Link onClick={logout} className="nav-link" to="/login">
+                        خروج
+                      </Link>
+                    </NavDropdown.Item>
+                  </NavDropdown>
                 </>
               ) : (
                 <>
