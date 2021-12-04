@@ -10,7 +10,7 @@ function AuthorPosts({ posts }) {
             {posts.map((post) => (
               <AuthorPost post={post} />
             ))}
-            {posts.length == 0
+            {posts.length === 0
               ? "این نویسنده تا به حال متنی منتشر نکرده است."
               : ""}
           </div>

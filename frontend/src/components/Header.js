@@ -7,6 +7,10 @@ function Header() {
     // localStorage.setItem("user-info", "");
     localStorage.removeItem("user-info");
   }
+  const userInfo = localStorage.getItem("user-info");
+  const userLogin = userInfo ? JSON.parse(userInfo) : null;
+  console.log(userLogin);
+  console.log(userLogin.username);
   return (
     <>
       <nav
@@ -47,21 +51,35 @@ function Header() {
                   هوش منصوعی
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link class="nav-link" to="/register">
-                  ثبت نام
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link class="nav-link" to="/login">
-                  ورود
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link onClick={logout} class="nav-link" to="/login">
-                  خروج
-                </Link>
-              </li>
+
+              {userLogin ? (
+                <>
+                  <li className="nav-item">
+                    <Link class="nav-link" to="">
+                      {userLogin.name}
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link onClick={logout} class="nav-link" to="/login">
+                      خروج
+                    </Link>
+                  </li>
+                </>
+              ) : (
+                <>
+                  {" "}
+                  <li className="nav-item">
+                    <Link class="nav-link" to="/login">
+                      ورود
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link class="nav-link" to="/register">
+                      ثبت نام
+                    </Link>
+                  </li>{" "}
+                </>
+              )}
             </ul>
             {/* <!-- End Menu --> */}
             {/* <!-- Begin Search --> */}
