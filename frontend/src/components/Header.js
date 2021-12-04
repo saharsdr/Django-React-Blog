@@ -92,6 +92,31 @@ function Header() {
                   </li>{" "}
                 </>
               )}
+              {userLogin ? (
+                <>
+                  <NavDropdown title="ادمین" id="basic-nav-dropdown">
+                    <NavDropdown.Item>
+                      <Link className="nav-link" to="/admin/posts-list">
+                        نوشته ها
+                      </Link>
+                    </NavDropdown.Item>
+
+                    <NavDropdown.Item>
+                      <Link className="nav-link" to="/admin/users-list">
+                        کاربرها
+                      </Link>
+                    </NavDropdown.Item>
+
+                    <NavDropdown.Item>
+                      <Link className="nav-link" to="/admin/category-list">
+                        دسته بندی ها
+                      </Link>
+                    </NavDropdown.Item>
+                  </NavDropdown>
+                </>
+              ) : (
+                ""
+              )}
             </ul>
             {/* <!-- End Menu --> */}
             {/* <!-- Begin Search --> */}
