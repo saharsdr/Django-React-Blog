@@ -1,7 +1,8 @@
 from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
 
 from ..serializers import CategorySerializer, CommentCreateSerializer, LikeSerializer, PostCreateSerializer, PostSerializer
@@ -34,6 +35,7 @@ def getPostCategory(request, pk):
 
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def createPost(request):
     serializer = PostCreateSerializer(data=request.data)
     if serializer.is_valid():
@@ -43,6 +45,7 @@ def createPost(request):
 
 # Delete a Post
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def deletePost(request, pk):
     try:
         post = Post.objects.get(_id=pk)
@@ -54,6 +57,7 @@ def deletePost(request, pk):
 
 # Update
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def updatePost(request, pk):
     post = Post.objects.get(_id=pk)
     serializer = PostCreateSerializer(instance=post, data=request.data)
@@ -63,6 +67,7 @@ def updatePost(request, pk):
 
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def createPostCategory(request, post_pk, category_pk):
     try:
         post = Post.objects.get(_id=post_pk)
@@ -83,6 +88,7 @@ def createPostComment(request, pk):
 
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def createPostLike(request, post_pk, user_pk):
     try:
         post = Post.objects.get(_id=post_pk)
@@ -96,6 +102,7 @@ def createPostLike(request, post_pk, user_pk):
 
 
 @api_view(['GET'])
+@permission_classes([IsAdminUser])
 def deletePostCategory(request, post_pk, category_pk):
     try:
         post = Post.objects.get(_id=post_pk)
@@ -110,6 +117,7 @@ def deletePostCategory(request, post_pk, category_pk):
 
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def deletePostLike(request, post_pk, user_pk):
     try:
         post = Post.objects.get(_id=post_pk)

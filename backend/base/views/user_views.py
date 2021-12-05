@@ -62,6 +62,7 @@ def getUserPosts(request, pk):
 
 # Delete a User
 @api_view(['GET'])
+@permission_classes([IsAdminUser])
 def deleteUser(request, pk):
     try:
         item = User.objects.get(id=pk)
@@ -71,8 +72,8 @@ def deleteUser(request, pk):
     return Response({'status': '200'})
 
 
-# @permission_classes([IsAuthenticated])
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def getUserProfile(request):
     user = request.user
 

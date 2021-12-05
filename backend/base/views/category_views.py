@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from rest_framework import serializers
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 
 from ..models import Category
@@ -27,6 +28,7 @@ def getCategoryPosts(request, pk):
 
 # Delete a Category
 @api_view(['GET'])
+@permission_classes([IsAdminUser])
 def deleteCategory(request, pk):
     try:
         item = Category.objects.get(_id=pk)
@@ -37,6 +39,7 @@ def deleteCategory(request, pk):
 
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def createCategory(request):
     serializer = CategoryCreateSerializer(data=request.data)
     if serializer.is_valid():
@@ -45,6 +48,7 @@ def createCategory(request):
 
 
 @api_view(['POST'])
+@permission_classes([IsAdminUser])
 def updateCategory(request, pk):
     category = Category.objects.get(_id=pk)
     serializer = CategoryCreateSerializer(instance=category, data=request.data)
