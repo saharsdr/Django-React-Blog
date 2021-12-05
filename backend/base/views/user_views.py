@@ -29,8 +29,8 @@ def registerUser(request):
 
 
 # Get List of Users
-# @permission_classes([IsAdminUser])
 @api_view(['GET'])
+@permission_classes([IsAdminUser])
 def getUsers(request):
     users = User.objects.all()
     serailizer = UserSerializer(users, many=True)

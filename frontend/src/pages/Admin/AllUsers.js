@@ -7,9 +7,14 @@ function AllUsers() {
   const [users, setUsers] = useState([]);
   const userInfo = getUserInfo();
   console.log(userInfo);
+  // const userToken = `Bearer `;
   useEffect(() => {
     async function fetchUsers() {
-      const { data } = await axios.get("/api/users/");
+      const { data } = await axios.get("/api/users/", {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      });
       setUsers(data);
     }
     if (userInfo && userInfo.isAdmin) {

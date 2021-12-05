@@ -13,7 +13,11 @@ function AllCategory() {
   console.log(userInfo);
   useEffect(() => {
     async function fetchCategory() {
-      const { data } = await axios.get("/api/category/");
+      const { data } = await axios.get("/api/category/", {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      });
       setCategory(data);
     }
     if (userInfo && userInfo.isAdmin) {
