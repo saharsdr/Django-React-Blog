@@ -7,11 +7,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
 import { RemovePost } from "../actions/postAction";
 
-function AuthorPost({ post, postDelet, setPostDelete }) {
+function AuthorPost({ post, postRefresh, setPostRefresh }) {
   const userInfo = getUserInfo();
   function handlerRemovePost() {
     RemovePost(post._id);
-    setPostDelete(!postDelet);
+    setPostRefresh(!postRefresh);
   }
   return (
     <div className="authorpostbox">

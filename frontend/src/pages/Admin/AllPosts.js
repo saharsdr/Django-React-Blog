@@ -1,7 +1,7 @@
 import React from "react";
 import AuthorPosts from "../../sections/AuthorPosts";
 
-function AllPosts({ setPostDelete, postDelet, posts }) {
+function AllPosts({ postRefresh, setPostRefresh, posts }) {
   return (
     <div>
       <div className="section-title">
@@ -10,8 +10,8 @@ function AllPosts({ setPostDelete, postDelet, posts }) {
         </h2>
       </div>
       <AuthorPosts
-        setPostDelete={setPostDelete}
-        postDelet={postDelet}
+        postRefresh={postRefresh}
+        setPostRefresh={setPostRefresh}
         posts={posts}
       />
     </div>

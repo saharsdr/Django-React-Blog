@@ -7,7 +7,7 @@ import axios from "axios";
 import getUserInfo from "../actions/getUserInfo";
 import { useHistory } from "react-router-dom";
 
-function NewPost() {
+function NewPost({ postRefresh, setPostRefresh }) {
   const history = useHistory();
   const userInfo = getUserInfo();
   const [title, setTitle] = useState("");
@@ -31,6 +31,7 @@ function NewPost() {
           }
         );
         history.push("/");
+        setPostRefresh(!postRefresh);
       } catch (error) {
         console.log(error.toJSON());
         alert("مشکلی پیش آمده است.");

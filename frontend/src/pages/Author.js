@@ -4,7 +4,7 @@ import AuthorPosts from "../sections/AuthorPosts";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 
-function Author({ postDelet, setPostDelete }) {
+function Author({ postRefresh, setPostRefresh }) {
   const history = useHistory();
   const url = history.location.pathname;
 
@@ -24,7 +24,7 @@ function Author({ postDelet, setPostDelete }) {
     }
     console.log("hi");
     fetchPosts();
-  }, [postDelet]);
+  }, [postRefresh]);
 
   return (
     <div>
@@ -34,8 +34,8 @@ function Author({ postDelet, setPostDelete }) {
         <>
           <AuthorInfo author={author} />
           <AuthorPosts
-            setPostDelete={setPostDelete}
-            postDelet={postDelet}
+            setPostDelete={setPostRefresh}
+            postRefresh={postRefresh}
             posts={posts}
           />
         </>

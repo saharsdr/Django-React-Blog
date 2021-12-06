@@ -23,7 +23,7 @@ import AllCategory from "./pages/Admin/AllCategory";
 import AllPosts from "./pages/Admin/AllPosts";
 
 function App() {
-  const [postDelet, setPostDelete] = useState(true);
+  const [postRefresh, setPostRefresh] = useState(true);
   const [articles, setArticles] = useState([]);
   useEffect(() => {
     async function fetchPosts() {
@@ -31,11 +31,10 @@ function App() {
       setArticles(data);
     }
     fetchPosts();
-  }, [postDelet]);
+  }, [postRefresh]);
   const location = useLocation();
   return (
     <>
-      {/* <GlobalStyle /> */}
       <Header />
       <Container>
         <Switch location={location} key={location.pathname}>
@@ -49,10 +48,13 @@ function App() {
             <Single articles={articles} />
           </Route>
           <Route path="/users/:id">
-            <Author postDelet={postDelet} setPostDelete={setPostDelete} />
+            <Author postRefresh={postRefresh} setPostRefresh={setPostRefresh} />
           </Route>
           <Route path="/new-post">
-            <NewPost />
+            <NewPost
+              postRefresh={postRefresh}
+              setPostRefresh={setPostRefresh}
+            />
           </Route>
           <Route path="/login">
             <Login />
@@ -65,8 +67,8 @@ function App() {
           </Route>
           <Route path="/admin/posts-list">
             <AllPosts
-              setPostDelete={setPostDelete}
-              postDelet={postDelet}
+              postRefresh={postRefresh}
+              setPostRefresh={setPostRefresh}
               posts={articles}
             />
           </Route>
