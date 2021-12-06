@@ -4,6 +4,8 @@
   "proxy": "http://127.0.0.1:8000",
   "private": true,
   "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^31.0.0",
+    "@ckeditor/ckeditor5-react": "^3.0.3",
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@fortawesome/react-fontawesome": "^0.1.16",
