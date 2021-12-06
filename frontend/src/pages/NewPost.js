@@ -1,12 +1,14 @@
 import React, { useState } from "react";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
+import { CKEditor } from "@ckeditor/ckeditor5-react/dist/ckeditor";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { Form, Button } from "react-bootstrap";
 import "@ckeditor/ckeditor5-build-classic/build/translations/fa";
 import axios from "axios";
 import getUserInfo from "../actions/getUserInfo";
+import { useHistory } from "react-router-dom";
 
 function NewPost() {
+  const history = useHistory();
   const userInfo = getUserInfo();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -14,16 +16,23 @@ function NewPost() {
   async function handlerSavePost() {
     if (userInfo) {
       try {
-        await axios.post("http://localhost:8000/api/posts-create/", {
-          title: title,
-          author: userInfo.id,
-          content: content,
-          descriprion: description,
-          headers: {
-            Authorization: `Bearer ${userInfo.token}`,
+        await axios.post(
+          "/api/posts-create/",
+          {
+            title: title,
+            user: userInfo.id,
+            content: content,
+            descriprion: description,
           },
-        });
-      } catch {
+          {
+            headers: {
+              Authorization: `Bearer ${userInfo.token}`,
+            },
+          }
+        );
+        history.push("/");
+      } catch (error) {
+        console.log(error.toJSON());
         alert("مشکلی پیش آمده است.");
       }
     }
@@ -43,6 +52,10 @@ function NewPost() {
           placeholder="وقتی که داستان ها پرواز ..."
         />
       </Form.Group>
+      <Form.Group controlId="formFile" className="mb-3">
+        <Form.Label>تصویر را انتخاب کنید</Form.Label>
+        <Form.Control type="file" />
+      </Form.Group>
       <Form.Group className="mb-3">
         <Form.Label>خلاصه : </Form.Label>
         <Form.Control
@@ -59,7 +72,7 @@ function NewPost() {
             language: "fa",
           }}
           editor={ClassicEditor}
-          data="<p></p>"
+          data=""
           onReady={(editor) => {
             // You can store the "editor" and use when it is needed.
             console.log("Editor is ready to use!", editor);
@@ -77,7 +90,7 @@ function NewPost() {
           }}
         />
       </Form.Group>
-      <Button className="mt-3" variant="primary">
+      <Button onClick={handlerSavePost} className="mt-3" variant="primary">
         دخیره
       </Button>{" "}
     </div>

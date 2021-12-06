@@ -7,6 +7,9 @@ function Article({ post, category, comments_len }) {
     post.thumbnail_pic != null
       ? post.thumbnail_pic
       : "/images/placeholder2.jpg";
+  function createMarkup() {
+    return { __html: post.content };
+  }
   return (
     <div className="container">
       <div className="row">
@@ -65,7 +68,12 @@ function Article({ post, category, comments_len }) {
           {/* <!-- End Featured Image --> */}
 
           {/* <!-- Begin Post Content --> */}
-          <div className="article-post">{post.content}</div>
+          <div
+            dangerouslySetInnerHTML={createMarkup()}
+            className="article-post"
+          >
+            {/* {post.content} */}
+          </div>
           {/* <!-- End Post Content --> */}
 
           {/* <!-- Begin Tags --> */}
