@@ -30,7 +30,25 @@ function EditPost({ postRefresh, setPostRefresh }) {
     }
     fetchPostCategory();
   }, [postRefresh, location]);
+  const [category, setCategory] = useState([]);
+  useEffect(() => {
+    async function fetchCategory() {
+      const { data } = await axios.get("/api/category/", {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      });
+      setCategory(data);
+    }
+    fetchCategory();
+  }, []);
 
+  let opList = [];
+  opList = category.map((item) => ({ value: item._id, label: item.name }));
+  let postOpList = postCategory.map((item) => ({
+    value: item._id,
+    label: item.name,
+  }));
   return (
     <div className="App">
       <PostFields
@@ -39,63 +57,9 @@ function EditPost({ postRefresh, setPostRefresh }) {
         postId={postId}
         postRefresh={postRefresh}
         setPostRefresh={setPostRefresh}
+        postCategory={postOpList}
+        allCategory={opList}
       />
-      {/* <Form.Group className="mb-3">
-        <Form.Label>موضوع : </Form.Label>
-        <Form.Control
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          type="text"
-          placeholder="وقتی که داستان ها پرواز ..."
-        />
-      </Form.Group>
-      <Form.Group controlId="formFile" className="mb-3">
-        <Form.Label>تصویر را انتخاب کنید</Form.Label>
-        <Form.Control type="file" />
-      </Form.Group>
-      <Form.Group className="mb-3">
-        <Form.Label>خلاصه : </Form.Label>
-        <Form.Control
-          // value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          as="textarea"
-          rows={3}
-          placeholder="وقتی که داستان ها پرواز ..."
-        />
-      </Form.Group>
-      <Form.Group className="mb-3">
-        <Form.Label>محتوا : </Form.Label>
-        <CKEditor
-          config={{
-            language: "fa",
-          }}
-          editor={ClassicEditor}
-          data={"content"}
-          onReady={(editor) => {
-            // You can store the "editor" and use when it is needed.
-            console.log("Editor is ready to use!", editor);
-          }}
-          onChange={(event, editor) => {
-            const data = editor.getData();
-            setContent(data);
-            console.log({ event, editor, data });
-          }}
-          onBlur={(event, editor) => {
-            console.log("Blur.", editor);
-          }}
-          onFocus={(event, editor) => {
-            console.log("Focus.", editor);
-          }}
-        />
-      </Form.Group>
-      <Button
-        onClick={handlerEditPost}
-        style={{ cursor: "pointer" }}
-        className="mt-3"
-        variant="primary"
-      >
-        ثبت تغییرات
-      </Button>{" "} */}
     </div>
   );
 }

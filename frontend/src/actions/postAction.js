@@ -34,7 +34,7 @@ export const CreatePost = async (
         user: userInfo.id,
         content: content,
         descriprion: description,
-        category,
+        category: category,
       },
       {
         headers: {
