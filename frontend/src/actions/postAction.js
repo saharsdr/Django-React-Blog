@@ -14,3 +14,39 @@ export const RemovePost = async (id) => {
     alert("مشکلی پیش آمده است.");
   }
 };
+
+export const CreatePost = async (
+  title,
+  content,
+  description,
+  category,
+  postRefresh,
+  setPostRefresh,
+  history
+) => {
+  const userInfo = getUserInfo();
+
+  try {
+    await axios.post(
+      "/api/posts-create/",
+      {
+        title: title,
+        user: userInfo.id,
+        content: content,
+        descriprion: description,
+        category,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      }
+    );
+    history.push("/");
+    setPostRefresh(!postRefresh);
+    return "ok";
+  } catch (error) {
+    console.log(error.toJSON());
+    return "error";
+  }
+};
