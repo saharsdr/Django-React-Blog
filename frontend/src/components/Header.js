@@ -3,7 +3,7 @@ import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import getUserInfo from "../actions/getUserInfo";
 
-function Header() {
+function Header({ setSearch }) {
   function logout() {
     // localStorage.setItem("user-info", "");
     localStorage.removeItem("user-info");

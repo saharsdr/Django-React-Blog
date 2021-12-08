@@ -1,53 +1,49 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { CKEditor } from "@ckeditor/ckeditor5-react/dist/ckeditor";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { Form, Button } from "react-bootstrap";
 import "@ckeditor/ckeditor5-build-classic/build/translations/fa";
 import axios from "axios";
 import getUserInfo from "../actions/getUserInfo";
-import { useHistory } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import PostFields from "../sections/PostFields";
 
-function NewPost({ postRefresh, setPostRefresh }) {
-  const history = useHistory();
+function EditPost({ postRefresh, setPostRefresh }) {
+  const location = useLocation().pathname;
+
+  const x1 = location.replace("posts", "");
+  const x2 = x1.replace("edit", "");
+  const postId = x2.replaceAll("/", "");
+  const [post, setPost] = useState({});
+  const [postCategory, setPostCategory] = useState([]);
   const userInfo = getUserInfo();
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [description, setDescription] = useState("");
-  async function handlerSavePost() {
-    if (userInfo) {
-      try {
-        await axios.post(
-          "/api/posts-create/",
-          {
-            title: title,
-            user: userInfo.id,
-            content: content,
-            descriprion: description,
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${userInfo.token}`,
-            },
-          }
-        );
-        history.push("/");
-        setPostRefresh(!postRefresh);
-      } catch (error) {
-        console.log(error.toJSON());
-        alert("مشکلی پیش آمده است.");
-      }
+
+  useEffect(() => {
+    async function fetchPost() {
+      const { data } = await axios.get(`/api/posts/${postId}/`);
+      setPost(data);
     }
-  }
+    fetchPost();
+    async function fetchPostCategory() {
+      const { data } = await axios.get(`/api/posts/${postId}/category/`);
+      setPostCategory(data);
+    }
+    fetchPostCategory();
+  }, [postRefresh, location]);
+
   return (
     <div className="App">
-      <div className="section-title">
-        <h2>
-          <span>نوشته ی جدید</span>
-        </h2>
-      </div>
-      <Form.Group className="mb-3">
+      <PostFields
+        userInfo={userInfo}
+        post={post}
+        postId={postId}
+        postRefresh={postRefresh}
+        setPostRefresh={setPostRefresh}
+      />
+      {/* <Form.Group className="mb-3">
         <Form.Label>موضوع : </Form.Label>
         <Form.Control
+          value={title}
           onChange={(e) => setTitle(e.target.value)}
           type="text"
           placeholder="وقتی که داستان ها پرواز ..."
@@ -60,6 +56,7 @@ function NewPost({ postRefresh, setPostRefresh }) {
       <Form.Group className="mb-3">
         <Form.Label>خلاصه : </Form.Label>
         <Form.Control
+          // value={description}
           onChange={(e) => setDescription(e.target.value)}
           as="textarea"
           rows={3}
@@ -73,7 +70,7 @@ function NewPost({ postRefresh, setPostRefresh }) {
             language: "fa",
           }}
           editor={ClassicEditor}
-          data=""
+          data={"content"}
           onReady={(editor) => {
             // You can store the "editor" and use when it is needed.
             console.log("Editor is ready to use!", editor);
@@ -92,15 +89,15 @@ function NewPost({ postRefresh, setPostRefresh }) {
         />
       </Form.Group>
       <Button
-        onClick={handlerSavePost}
+        onClick={handlerEditPost}
         style={{ cursor: "pointer" }}
         className="mt-3"
         variant="primary"
       >
-        دخیره
-      </Button>{" "}
+        ثبت تغییرات
+      </Button>{" "} */}
     </div>
   );
 }
 
-export default NewPost;
+export default EditPost;

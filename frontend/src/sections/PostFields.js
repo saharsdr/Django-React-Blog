@@ -1,23 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { CKEditor } from "@ckeditor/ckeditor5-react/dist/ckeditor";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { Form, Button } from "react-bootstrap";
 import "@ckeditor/ckeditor5-build-classic/build/translations/fa";
 import axios from "axios";
-import getUserInfo from "../actions/getUserInfo";
-import { useHistory } from "react-router-dom";
 
-function NewPost({ postRefresh, setPostRefresh }) {
-  const history = useHistory();
-  const userInfo = getUserInfo();
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [description, setDescription] = useState("");
-  async function handlerSavePost() {
+function PostFields({ postId, post, userInfo, postRefresh, setPostRefresh }) {
+  const [title, setTitle] = useState(post.title);
+  const [content, setContent] = useState(post.content);
+  const [description, setDescription] = useState(post.descriprion);
+  async function handlerEditPost() {
     if (userInfo) {
       try {
         await axios.post(
-          "/api/posts-create/",
+          `/api/posts/${postId}/update/`,
           {
             title: title,
             user: userInfo.id,
@@ -30,7 +26,7 @@ function NewPost({ postRefresh, setPostRefresh }) {
             },
           }
         );
-        history.push("/");
+        alert("تغییرات ثبت شد.");
         setPostRefresh(!postRefresh);
       } catch (error) {
         console.log(error.toJSON());
@@ -38,16 +34,13 @@ function NewPost({ postRefresh, setPostRefresh }) {
       }
     }
   }
+
   return (
-    <div className="App">
-      <div className="section-title">
-        <h2>
-          <span>نوشته ی جدید</span>
-        </h2>
-      </div>
+    <>
       <Form.Group className="mb-3">
         <Form.Label>موضوع : </Form.Label>
         <Form.Control
+          value={title}
           onChange={(e) => setTitle(e.target.value)}
           type="text"
           placeholder="وقتی که داستان ها پرواز ..."
@@ -60,6 +53,7 @@ function NewPost({ postRefresh, setPostRefresh }) {
       <Form.Group className="mb-3">
         <Form.Label>خلاصه : </Form.Label>
         <Form.Control
+          value={description}
           onChange={(e) => setDescription(e.target.value)}
           as="textarea"
           rows={3}
@@ -73,7 +67,7 @@ function NewPost({ postRefresh, setPostRefresh }) {
             language: "fa",
           }}
           editor={ClassicEditor}
-          data=""
+          data={content}
           onReady={(editor) => {
             // You can store the "editor" and use when it is needed.
             console.log("Editor is ready to use!", editor);
@@ -92,15 +86,15 @@ function NewPost({ postRefresh, setPostRefresh }) {
         />
       </Form.Group>
       <Button
-        onClick={handlerSavePost}
+        onClick={handlerEditPost}
         style={{ cursor: "pointer" }}
         className="mt-3"
         variant="primary"
       >
-        دخیره
+        ثبت تغییرات
       </Button>{" "}
-    </div>
+    </>
   );
 }
 
-export default NewPost;
+export default PostFields;

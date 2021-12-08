@@ -34,7 +34,7 @@ function Author({ postRefresh, setPostRefresh }) {
         <>
           <AuthorInfo author={author} />
           <AuthorPosts
-            setPostDelete={setPostRefresh}
+            setPostRefresh={setPostRefresh}
             postRefresh={postRefresh}
             posts={posts}
           />

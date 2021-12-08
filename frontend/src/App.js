@@ -21,10 +21,12 @@ import NewPost from "./pages/NewPost";
 import AllUsers from "./pages/Admin/AllUsers";
 import AllCategory from "./pages/Admin/AllCategory";
 import AllPosts from "./pages/Admin/AllPosts";
+import EditPost from "./pages/EditPost";
 
 function App() {
   const [postRefresh, setPostRefresh] = useState(true);
   const [articles, setArticles] = useState([]);
+  const [search, setSearch] = useState("");
   useEffect(() => {
     async function fetchPosts() {
       const { data } = await axios.get("/api/posts/");
@@ -35,7 +37,7 @@ function App() {
   const location = useLocation();
   return (
     <>
-      <Header />
+      <Header setSearch={setSearch} />
       <Container>
         <Switch location={location} key={location.pathname}>
           <Route path="/" exact>
@@ -44,7 +46,7 @@ function App() {
           <Route path="/category/:id" exact>
             <CategoryBase />
           </Route>
-          <Route path="/posts/:id">
+          <Route path="/posts/:id" exact>
             <Single articles={articles} />
           </Route>
           <Route path="/users/:id">
@@ -52,6 +54,12 @@ function App() {
           </Route>
           <Route path="/new-post">
             <NewPost
+              postRefresh={postRefresh}
+              setPostRefresh={setPostRefresh}
+            />
+          </Route>
+          <Route path="/posts/:id/edit">
+            <EditPost
               postRefresh={postRefresh}
               setPostRefresh={setPostRefresh}
             />

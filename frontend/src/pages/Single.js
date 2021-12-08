@@ -24,6 +24,7 @@ function Single({ articles }) {
       const { data } = await axios.get(`/api${url}/category/`);
       setPostCategory(data);
     }
+    fetchPostCategory();
   }, []);
   useEffect(() => {
     async function fetchPostComments() {

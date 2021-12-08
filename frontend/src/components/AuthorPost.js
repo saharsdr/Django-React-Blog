@@ -30,13 +30,16 @@ function AuthorPost({ post, postRefresh, setPostRefresh }) {
             </h2>
             {userInfo && (userInfo.isAdmin || userInfo.id === post.user) ? (
               <div className="icons">
-                <FontAwesomeIcon
-                  icon={faEdit}
-                  color="gray"
-                  size="sm"
-                  className="mx-2"
-                  style={{ cursor: "pointer" }}
-                />
+                <Link to={`/posts/${post._id}/edit`}>
+                  <FontAwesomeIcon
+                    icon={faEdit}
+                    color="gray"
+                    size="sm"
+                    className="mx-2"
+                    style={{ cursor: "pointer" }}
+                  />
+                </Link>
+
                 {"  "}
                 <FontAwesomeIcon
                   onClick={handlerRemovePost}
