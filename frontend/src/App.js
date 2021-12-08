@@ -37,11 +37,11 @@ function App() {
   const location = useLocation();
   return (
     <>
-      <Header setSearch={setSearch} />
+      <Header setSearch={setSearch} search={search} />
       <Container>
         <Switch location={location} key={location.pathname}>
           <Route path="/" exact>
-            <Home articles={articles} />
+            <Home search={search} articles={articles} />
           </Route>
           <Route path="/category/:id" exact>
             <CategoryBase />
@@ -71,17 +71,18 @@ function App() {
             <Register />
           </Route>
           <Route path="/admin/users-list">
-            <AllUsers />
+            <AllUsers search={search} />
           </Route>
           <Route path="/admin/posts-list">
             <AllPosts
+              search={search}
               postRefresh={postRefresh}
               setPostRefresh={setPostRefresh}
               posts={articles}
             />
           </Route>
           <Route path="/admin/category-list">
-            <AllCategory />
+            <AllCategory search={search} />
           </Route>
         </Switch>
         <Footer />

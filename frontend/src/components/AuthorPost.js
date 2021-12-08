@@ -69,7 +69,7 @@ function AuthorPost({ post, postRefresh, setPostRefresh }) {
               </span>
               <span className="author-meta">
                 <span className="post-name">
-                  <Link to={`/users/${post.user}`}>{post.username}</Link>
+                  <Link to={`/users/${post.user}`}>{post.author}</Link>
                 </span>
                 <br />
                 <span className="post-date">{post.date}</span>

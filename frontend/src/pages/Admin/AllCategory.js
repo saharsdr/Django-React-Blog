@@ -5,8 +5,9 @@ import getUserInfo from "../../actions/getUserInfo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { RemoveCategory } from "../../actions/categoryAction";
+import { Link } from "react-router-dom";
 
-function AllCategory() {
+function AllCategory({ search }) {
   const [category, setCategory] = useState([]);
   const [refresh, setRefresh] = useState(true);
   const userInfo = getUserInfo();
@@ -28,6 +29,10 @@ function AllCategory() {
     RemoveCategory(id);
     setRefresh(!refresh);
   }
+  let displayedContacts = category.filter(function (el) {
+    let searchValue1 = el.name.toLowerCase();
+    return searchValue1.indexOf(search) !== -1;
+  });
   return (
     <div>
       {userInfo && userInfo.isAdmin ? (
@@ -40,11 +45,14 @@ function AllCategory() {
             </div>
             <div className="card-columns listrecent">
               {/* hi */}
-              {category.map((item) => (
+              {displayedContacts.map((item) => (
                 <div className="card">
                   <div className="card-block">
                     <div className="d-flex justify-content-between">
-                      <h2 className="card-title">{item.name}</h2>
+                      <h2 className="card-title">
+                        <Link to={`/category/${item._id}`}>{item.name}</Link>
+                      </h2>
+
                       <FontAwesomeIcon
                         onClick={() => handlerRemoveCategory(item._id)}
                         icon={faTrash}

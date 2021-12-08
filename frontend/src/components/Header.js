@@ -3,7 +3,7 @@ import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import getUserInfo from "../actions/getUserInfo";
 
-function Header({ setSearch }) {
+function Header({ setSearch, search }) {
   function logout() {
     // localStorage.setItem("user-info", "");
     localStorage.removeItem("user-info");
@@ -122,6 +122,8 @@ function Header({ setSearch }) {
             {/* <!-- Begin Search --> */}
             <form className="form-inline my-2 my-lg-0">
               <input
+                value={search}
+                onChange={(e) => setSearch(e.target.value.toLowerCase())}
                 className="form-control mr-sm-2"
                 type="text"
                 placeholder="جستجو"

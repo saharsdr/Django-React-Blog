@@ -3,7 +3,7 @@ import axios from "axios";
 import User from "../../components/User";
 import getUserInfo from "../../actions/getUserInfo";
 
-function AllUsers() {
+function AllUsers({ search }) {
   const [users, setUsers] = useState([]);
   const userInfo = getUserInfo();
   console.log(userInfo);
@@ -21,6 +21,13 @@ function AllUsers() {
       fetchUsers();
     }
   }, []);
+  let displayedContacts = users.filter(function (el) {
+    let searchValue1 = el.username.toLowerCase();
+    let searchValue2 = el.name.toLowerCase();
+    return (
+      searchValue1.indexOf(search) !== -1 || searchValue2.indexOf(search) !== -1
+    );
+  });
   return (
     <div>
       <div className="section-title">
@@ -29,7 +36,7 @@ function AllUsers() {
         </h2>
       </div>
       {userInfo && userInfo.isAdmin
-        ? users.map((item) => <User user={item} />)
+        ? displayedContacts.map((item) => <User user={item} />)
         : ""}
     </div>
   );
