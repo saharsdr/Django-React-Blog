@@ -9,6 +9,7 @@ import Comments from "../sections/Comments";
 function Single({ articles }) {
   const history = useHistory();
   const url = history.location.pathname;
+  const [likeRefresh, setLikeRefresh] = useState(true);
 
   const [refresh, setRefresh] = useState(true);
   const [post, setPost] = useState({});
@@ -25,7 +26,7 @@ function Single({ articles }) {
       setPostCategory(data);
     }
     fetchPostCategory();
-  }, []);
+  }, [likeRefresh]);
   useEffect(() => {
     async function fetchPostComments() {
       const { data } = await axios.get(`/api${url}/comments/`);
@@ -37,6 +38,8 @@ function Single({ articles }) {
   return (
     <div>
       <Article
+        setLikeRefresh={setLikeRefresh}
+        likeRefresh={likeRefresh}
         post={post}
         category={postCategory}
         comments_len={postComments.length}

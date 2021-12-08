@@ -4,7 +4,7 @@ import getUserInfo from "../actions/getUserInfo";
 import { useLocation } from "react-router-dom";
 import PostFields from "../sections/PostFields";
 
-function EditPost({ postRefresh, setPostRefresh }) {
+function EditableForm({ postRefresh, setPostRefresh }) {
   const location = useLocation().pathname;
 
   const x1 = location.replace("posts", "");
@@ -26,7 +26,7 @@ function EditPost({ postRefresh, setPostRefresh }) {
       setPostCategory(data);
     }
     fetchPostCategory();
-  }, [postRefresh, location]);
+  }, []);
 
   useEffect(() => {
     async function fetchCategory() {
@@ -38,10 +38,11 @@ function EditPost({ postRefresh, setPostRefresh }) {
       setCategory(data);
     }
     fetchCategory();
-  }, [postRefresh]);
+  }, []);
 
+  console.log(post);
   return (
-    <div className="App">
+    <div>
       <PostFields
         userInfo={userInfo}
         post={post}
@@ -51,8 +52,10 @@ function EditPost({ postRefresh, setPostRefresh }) {
         postCategory={postCategory}
         allCategory={category}
       />
+      <p></p>
+      <p></p>
     </div>
   );
 }
 
-export default EditPost;
+export default EditableForm;

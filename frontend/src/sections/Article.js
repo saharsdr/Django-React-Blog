@@ -1,8 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import ShareArticle from "../components/ShareArticle";
 import { Link } from "react-router-dom";
+import getUserInfo from "../actions/getUserInfo";
 
-function Article({ post, category, comments_len }) {
+function Article({
+  post,
+  category,
+  comments_len,
+  setLikeRefresh,
+  likeRefresh,
+}) {
+  const [thisUserLike, setThisUserLike] = useState(false);
+  const userInfo = getUserInfo();
+  setLikeRefresh(
+    userInfo && post.like && post.like.indexOf(userInfo.id) !== -1
+      ? true
+      : false
+  );
   var post_image =
     post.thumbnail_pic != null
       ? post.thumbnail_pic
@@ -15,7 +29,15 @@ function Article({ post, category, comments_len }) {
       <div className="row">
         {/* <!-- Begin Fixed Left Share --> */}
         <div className="col-md-2 col-xs-12">
-          <ShareArticle comments_len={comments_len} />
+          <ShareArticle
+            setThisUserLike={setThisUserLike}
+            thisUserLike={thisUserLike}
+            postId={post._id}
+            likeCount={post.like ? post.like.length : 0}
+            setLikeRefresh={setLikeRefresh}
+            likeRefresh={likeRefresh}
+            comments_len={comments_len}
+          />
         </div>
         {/* <!-- End Fixed Left Share --> */}
 

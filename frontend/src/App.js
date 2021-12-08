@@ -22,6 +22,7 @@ import AllUsers from "./pages/Admin/AllUsers";
 import AllCategory from "./pages/Admin/AllCategory";
 import AllPosts from "./pages/Admin/AllPosts";
 import EditPost from "./pages/EditPost";
+import EditableForm from "./sections/EditableForm";
 
 function App() {
   const [postRefresh, setPostRefresh] = useState(true);
@@ -43,6 +44,13 @@ function App() {
           <Route path="/" exact>
             <Home search={search} articles={articles} />
           </Route>
+          <Route path="/:id" exact>
+            <EditableForm
+              postRefresh={postRefresh}
+              setPostRefresh={setPostRefresh}
+            />
+          </Route>
+
           <Route path="/category/:id" exact>
             <CategoryBase />
           </Route>

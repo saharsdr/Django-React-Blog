@@ -1,11 +1,53 @@
 import React from "react";
-
-function ShareArticle({ comments_len }) {
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from "axios";
+import { faHeart, faThumbsUp } from "@fortawesome/free-solid-svg-icons";
+import getUserInfo from "../actions/getUserInfo";
+function ShareArticle({
+  comments_len,
+  postId,
+  likeCount,
+  setLikeRefresh,
+  likeRefresh,
+  setThisUserLike,
+  thisUserLike,
+}) {
+  const userInfo = getUserInfo();
+  const userId = userInfo.id;
+  async function LikePost() {
+    if (!thisUserLike) {
+      try {
+        await axios.get(`/api/posts/${postId}/like/${userId}/create/`, {
+          headers: {
+            Authorization: `Bearer ${userInfo.token}`,
+          },
+        });
+        setLikeRefresh(!likeRefresh);
+        setThisUserLike(!thisUserLike);
+        alert("شما پشت را لایک کردید.");
+      } catch (error) {
+        console.log("erroe");
+      }
+    } else if (thisUserLike) {
+      try {
+        await axios.get(`/api/posts/${postId}/like/${userId}/remove/`, {
+          headers: {
+            Authorization: `Bearer ${userInfo.token}`,
+          },
+        });
+        setLikeRefresh(!likeRefresh);
+        setThisUserLike(!thisUserLike);
+        alert("شما پشت را دیس لایک کردید.");
+      } catch (error) {
+        console.log("erroe");
+      }
+    }
+  }
   return (
     <div className="share">
       <p>اشتراک گذاری</p>
       <ul>
-        <li>
+        <li key="twitter">
           <a
             target="_blank"
             href="https://twitter.com/home?status=http%3A//www.wowthemes.net"
@@ -20,7 +62,7 @@ function ShareArticle({ comments_len }) {
             </svg>
           </a>
         </li>
-        <li>
+        <li key="facebook">
           <a
             target="_blank"
             href="https://www.facebook.com/sharer/sharer.php?u=http%3A//www.wowthemes.net"
@@ -39,7 +81,7 @@ function ShareArticle({ comments_len }) {
       <div className="sep"></div>
       <p>نظرات</p>
       <ul>
-        <li>
+        <li key="comment">
           <a href="#comments">
             {comments_len}
             <br />
@@ -51,6 +93,22 @@ function ShareArticle({ comments_len }) {
             >
               <path d="M21.27 20.058c1.89-1.826 2.754-4.17 2.754-6.674C24.024 8.21 19.67 4 14.1 4 8.53 4 4 8.21 4 13.384c0 5.175 4.53 9.385 10.1 9.385 1.007 0 2-.14 2.95-.41.285.25.592.49.918.7 1.306.87 2.716 1.31 4.19 1.31.276-.01.494-.14.6-.36a.625.625 0 0 0-.052-.65c-.61-.84-1.042-1.71-1.282-2.58a5.417 5.417 0 0 1-.154-.75zm-3.85 1.324l-.083-.28-.388.12a9.72 9.72 0 0 1-2.85.424c-4.96 0-8.99-3.706-8.99-8.262 0-4.556 4.03-8.263 8.99-8.263 4.95 0 8.77 3.71 8.77 8.27 0 2.25-.75 4.35-2.5 5.92l-.24.21v.32c0 .07 0 .19.02.37.03.29.1.6.19.92.19.7.49 1.4.89 2.08-.93-.14-1.83-.49-2.67-1.06-.34-.22-.88-.48-1.16-.74z"></path>
             </svg>
+          </a>
+        </li>
+      </ul>
+      <div className="sep"></div>
+      <p>لایک ها</p>
+      <ul>
+        <li key="like">
+          <a style={{ cursor: "pointer" }} onClick={LikePost}>
+            {likeCount}
+            <br />
+            <img
+              width="29"
+              height="29"
+              src={thisUserLike ? `/images/heart_red.png` : "/images/heart.png"}
+              alt="like this post"
+            />
           </a>
         </li>
       </ul>

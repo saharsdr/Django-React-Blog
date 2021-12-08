@@ -21,13 +21,25 @@ function PostFields({
   const [title, setTitle] = useState(post.title);
   const [content, setContent] = useState(post.content);
   const [description, setDescription] = useState(post.descriprion);
+  useEffect(() => {
+    setTitle(post.title);
+  }, []);
+  let opAllCategory = [];
+  opAllCategory = allCategory.map((item) => ({
+    value: item._id,
+    label: item.name,
+  }));
+  let postOpList = postCategory.map((item) => ({
+    value: item._id,
+    label: item.name,
+  }));
+  // console.log(selectedOption);
+  console.log(post);
+  console.log(postCategory);
+  // setSelectedOption(postCategory);
+  // console.log(selectedOption);
+  // if (userInfo) {
   async function handlerEditPost() {
-    console.log(selectedOption);
-    console.log(post);
-    console.log(postCategory);
-    setSelectedOption(postCategory);
-    console.log(selectedOption);
-    // if (userInfo) {
     //   try {
     //     await axios.post(
     //       `/api/posts/${postId}/update/`,
