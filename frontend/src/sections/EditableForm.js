@@ -29,15 +29,17 @@ function EditableForm({ postRefresh, setPostRefresh }) {
   }, []);
 
   useEffect(() => {
-    async function fetchCategory() {
-      const { data } = await axios.get("/api/category/", {
-        headers: {
-          Authorization: `Bearer ${userInfo.token}`,
-        },
-      });
-      setCategory(data);
+    if (userInfo) {
+      async function fetchCategory() {
+        const { data } = await axios.get("/api/category/", {
+          headers: {
+            Authorization: `Bearer ${userInfo.token}`,
+          },
+        });
+        setCategory(data);
+      }
+      fetchCategory();
     }
-    fetchCategory();
   }, []);
 
   console.log(post);

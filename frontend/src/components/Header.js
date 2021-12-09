@@ -92,7 +92,7 @@ function Header({ setSearch, search }) {
                   </li>{" "}
                 </>
               )}
-              {userLogin ? (
+              {userLogin && userLogin.isAdmin ? (
                 <>
                   <NavDropdown title="ادمین" id="basic-nav-dropdown">
                     <NavDropdown.Item>

@@ -44,12 +44,12 @@ function App() {
           <Route path="/" exact>
             <Home search={search} articles={articles} />
           </Route>
-          <Route path="/:id" exact>
+          {/* <Route path="/:id" exact>
             <EditableForm
               postRefresh={postRefresh}
               setPostRefresh={setPostRefresh}
             />
-          </Route>
+          </Route> */}
 
           <Route path="/category/:id" exact>
             <CategoryBase />

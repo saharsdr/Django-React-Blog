@@ -14,5 +14,6 @@ urlpatterns = [
 
     path('-login/', views.MyTokenObtainPairView.as_view(), name='user-login'),
 
-    path('-register/', user_views.registerUser, name="user-register")
+    path('-register/', user_views.registerUser, name="user-register"),
+    path('-test1/', views.test1, name="test1"),
 ]

@@ -13,36 +13,40 @@ function ShareArticle({
   thisUserLike,
 }) {
   const userInfo = getUserInfo();
-  const userId = userInfo.id;
+
   async function LikePost() {
-    if (!thisUserLike) {
-      try {
-        await axios.get(`/api/posts/${postId}/like/${userId}/create/`, {
-          headers: {
-            Authorization: `Bearer ${userInfo.token}`,
-          },
-        });
-        setLikeRefresh(!likeRefresh);
-        setThisUserLike(!thisUserLike);
-        alert("شما پشت را لایک کردید.");
-      } catch (error) {
-        console.log("erroe");
-      }
-    } else if (thisUserLike) {
-      try {
-        await axios.get(`/api/posts/${postId}/like/${userId}/remove/`, {
-          headers: {
-            Authorization: `Bearer ${userInfo.token}`,
-          },
-        });
-        setLikeRefresh(!likeRefresh);
-        setThisUserLike(!thisUserLike);
-        alert("شما پشت را دیس لایک کردید.");
-      } catch (error) {
-        console.log("erroe");
+    if (userInfo) {
+      const userId = userInfo.id;
+      if (!thisUserLike) {
+        try {
+          await axios.get(`/api/posts/${postId}/like/${userId}/create/`, {
+            headers: {
+              Authorization: `Bearer ${userInfo.token}`,
+            },
+          });
+          setLikeRefresh(!likeRefresh);
+          setThisUserLike(!thisUserLike);
+          alert("شما پشت را لایک کردید.");
+        } catch (error) {
+          console.log("erroe");
+        }
+      } else if (thisUserLike) {
+        try {
+          await axios.get(`/api/posts/${postId}/like/${userId}/remove/`, {
+            headers: {
+              Authorization: `Bearer ${userInfo.token}`,
+            },
+          });
+          setLikeRefresh(!likeRefresh);
+          setThisUserLike(!thisUserLike);
+          alert("شما پشت را دیس لایک کردید.");
+        } catch (error) {
+          console.log("erroe");
+        }
       }
     }
   }
+
   return (
     <div className="share">
       <p>اشتراک گذاری</p>
