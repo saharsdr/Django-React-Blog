@@ -153,7 +153,7 @@ def postUserProposed(request):
                 arr.append({'id': category._id, 'count': 1})
     newlist = sorted(arr, key=lambda d: d['count'])
     newlist = newlist[::-1]
-    most_liked_category = newlist[0:4]
+    most_liked_category = newlist[0:5]
     posts = []
     for item in most_liked_category:
         post_id = getBestPostOfCategory(item['id'])
@@ -166,6 +166,7 @@ def postUserProposed(request):
                     break
             if flaq:
                 posts.append(post)
+
     serailizer = PostSerializer(posts, many=True)
     return Response(serailizer.data)
 

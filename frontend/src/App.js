@@ -23,10 +23,13 @@ import AllCategory from "./pages/Admin/AllCategory";
 import AllPosts from "./pages/Admin/AllPosts";
 import EditPost from "./pages/EditPost";
 import EditableForm from "./sections/EditableForm";
+import getUserInfo from "./actions/getUserInfo";
 
 function App() {
+  const userInfo = getUserInfo();
   const [postRefresh, setPostRefresh] = useState(true);
   const [articles, setArticles] = useState([]);
+  const [userArticles, setUserArticles] = useState([]);
   const [search, setSearch] = useState("");
   useEffect(() => {
     async function fetchPosts() {
@@ -34,6 +37,15 @@ function App() {
       setArticles(data);
     }
     fetchPosts();
+    async function fetchUserPosts() {
+      const { data } = await axios.get("/api/posts-proposed/", {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      });
+      setUserArticles(data);
+    }
+    fetchUserPosts();
   }, [postRefresh]);
   const location = useLocation();
   return (
@@ -42,7 +54,11 @@ function App() {
       <Container>
         <Switch location={location} key={location.pathname}>
           <Route path="/" exact>
-            <Home search={search} articles={articles} />
+            <Home
+              userArticles={userArticles}
+              search={search}
+              articles={articles}
+            />
           </Route>
           {/* <Route path="/:id" exact>
             <EditableForm
