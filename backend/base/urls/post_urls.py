@@ -1,4 +1,5 @@
 from django.urls import path, include
+# from rest_framework import views
 
 from ..views import post_views, comment_views
 
@@ -47,5 +48,7 @@ urlpatterns = [
 
 
     path('/<str:pk>/update/', post_views.updatePost, name='post-update'),
+
+    path('-proposed/', post_views.postUserProposed, name="post-user-proposed"),
 
 ]

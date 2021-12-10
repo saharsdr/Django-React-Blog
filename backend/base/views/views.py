@@ -43,10 +43,3 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
-
-
-@api_view(['POST'])
-def test1(request):
-    print(request.data['name'])
-    print(request.user.is_staff)
-    return Response({'hi'})
