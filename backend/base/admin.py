@@ -5,5 +5,4 @@ from .models import Category, Comment, Follow, Post
 admin.site.register(Post)
 admin.site.register(Category)
 admin.site.register(Follow)
-# admin.site.register(Like)
 admin.site.register(Comment)

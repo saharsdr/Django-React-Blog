@@ -48,6 +48,17 @@ class Comment(models.Model):
 class Follow(models.Model):
     _id = models.AutoField(primary_key=True, editable=False)
     follower = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="follower")
-    following = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="following")
+    following = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="followed_by")
+
+    def __str__(self):
+        return str(self.follower.username)+"   -follow-   "+str(self.following.username)
+
+# class UserFollowing(models.Model):
+#     user = models.ForeignKey(User, related_name='following')
+#     following = models.ForeignKey(User, related_name='followed_by')
+
+# user = User.objects.get(...)
+# user.following.all() # all users this user is following
+# user.followed_by.all() # all users who follow this user
