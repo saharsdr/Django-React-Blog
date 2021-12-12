@@ -1,4 +1,6 @@
-
+from itertools import chain
+from typing import List
+from django.db.models.query import QuerySet
 from django.shortcuts import render, get_object_or_404
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
@@ -7,23 +9,29 @@ from django.contrib.auth.hashers import make_password
 from rest_framework import status
 
 from ..models import User, Follow
-from ..serializers import UserSerializer
+from ..serializers import PostSerializer, UserSerializer
 
 
 # List of who user is following them
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def getUserFollowing(request):
+    following = findUserFollowing(request)
+    serializer = UserSerializer(following, many=True)
+    return Response(serializer.data)
+
+
+def findUserFollowing(request):
     user = request.user
     items = user.following.all()
     following = []
     for item in items:
         following.append(item.following)
-    serializer = UserSerializer(following, many=True)
-    return Response(serializer.data)
-
+    return following
 
 # List of whom are follow the user
+
+
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def getUserFollower(request):
@@ -109,3 +117,21 @@ def isExistFolloing(user, following):
     else:
         is_exist = False
     return is_exist
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getUserFollowingsPosts(request):
+    try:
+        following = findUserFollowing(request)
+        posts = []
+        for user in following:
+            arr = user.post_set.all().order_by('-createdAt')
+            posts = list(chain(posts, arr[0:20]))
+        listt = sorted(posts, key=lambda p: p._id)
+        listt = listt[::-1]
+        serailizer = PostSerializer(listt, many=True)
+        newlist = serailizer.data
+        return Response(newlist, status=status.HTTP_200_OK)
+    except:
+        return Response({'detail': 'somthing is wrong'}, status=status.HTTP_400_BAD_REQUEST)

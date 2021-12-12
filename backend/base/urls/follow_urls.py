@@ -6,6 +6,9 @@ from ..views import follow_views
 urlpatterns = [
     path('-following/', follow_views.getUserFollowing, name='users-following'),
 
+    path('-followings-posts/', follow_views.getUserFollowingsPosts,
+         name='users-followings-posts'),
+
     path('-following/<str:pk>/', follow_views.getUserThisFollowing,
          name='users-this-following'),
 
