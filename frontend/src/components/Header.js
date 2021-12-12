@@ -45,11 +45,17 @@ function Header({ setSearch, search }) {
                   صفحه نخست <span className="sr-only">(current)</span>
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/">
-                  هوش منصوعی
-                </Link>
-              </li>
+              {userLogin ? (
+                <>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/posts/following">
+                      نوشته های دوستان
+                    </Link>
+                  </li>
+                </>
+              ) : (
+                ""
+              )}
 
               {userLogin ? (
                 <>

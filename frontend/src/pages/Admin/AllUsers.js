@@ -21,6 +21,7 @@ function AllUsers({ search }) {
       fetchUsers();
     }
   }, []);
+  document.title = "لیست کاربران";
   let displayedContacts = users.filter(function (el) {
     let searchValue1 = el.username.toLowerCase();
     let searchValue2 = el.name.toLowerCase();

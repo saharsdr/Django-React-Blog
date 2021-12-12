@@ -12,6 +12,7 @@ function AllCategory({ search }) {
   const [refresh, setRefresh] = useState(true);
   const userInfo = getUserInfo();
   console.log(userInfo);
+  document.title = "لیست دسته بندی ها";
   useEffect(() => {
     async function fetchCategory() {
       const { data } = await axios.get("/api/category/", {

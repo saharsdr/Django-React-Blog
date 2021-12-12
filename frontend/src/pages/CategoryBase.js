@@ -15,6 +15,7 @@ function CategoryBase() {
     }
     fetchCategory();
   }, []);
+  document.title = "سایت";
   return (
     <div>
       <Hero />

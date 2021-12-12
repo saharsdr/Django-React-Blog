@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 
 function Login() {
+  document.title = "ورود";
   const history = useHistory();
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");

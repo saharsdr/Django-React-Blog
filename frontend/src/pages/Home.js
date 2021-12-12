@@ -7,7 +7,7 @@ function Home({ userArticles, articles, search }) {
     let searchValue = el.title.toLowerCase();
     return searchValue.indexOf(search) !== -1;
   });
-
+  document.title = "خانه";
   return (
     <div>
       <Hero />

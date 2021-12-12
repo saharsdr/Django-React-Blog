@@ -24,6 +24,7 @@ import AllPosts from "./pages/Admin/AllPosts";
 import EditPost from "./pages/EditPost";
 import EditableForm from "./sections/EditableForm";
 import getUserInfo from "./actions/getUserInfo";
+import FollowingPosts from "./pages/FollowingPosts";
 
 function App() {
   const userInfo = getUserInfo();
@@ -59,6 +60,9 @@ function App() {
               search={search}
               articles={articles}
             />
+          </Route>
+          <Route path="/posts/following" exact>
+            <FollowingPosts search={search} postRefresh={postRefresh} />
           </Route>
           {/* <Route path="/:id" exact>
             <EditableForm

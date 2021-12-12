@@ -1,17 +1,52 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ShareArticle from "../components/ShareArticle";
 import { Link } from "react-router-dom";
 import getUserInfo from "../actions/getUserInfo";
+import {
+  isFollowUser,
+  followUser,
+  unfollowUser,
+} from "../actions/followUnfollow";
 
 function Article({
   post,
+  post_user,
   category,
   comments_len,
   setLikeRefresh,
   likeRefresh,
 }) {
+  const [isFollowing, setIsFollowing] = useState(false);
   const [thisUserLike, setThisUserLike] = useState(false);
+  const [thisUserFollow, setThisUserFollow] = useState(false);
   const userInfo = getUserInfo();
+  // useEffect(() => {
+  //   async function getIt() {
+  //     const data = await isFollowUser(post_user);
+  //     setIsFollowing(data);
+  //   }
+  //   getIt();
+  // }, [thisUserFollow]);
+
+  // function follow() {
+  //   followUser(post.user).then((result) => {
+  //     console.log(result);
+  //     if (result) {
+  //       alert("مخاطب مورد نظر فالو شد.");
+  //       setThisUserFollow(!thisUserFollow);
+  //     }
+  //   });
+  // }
+  // function unfollow() {
+  //   unfollowUser(post.user).then((result) => {
+  //     console.log(result);
+  //     if (result) {
+  //       alert("مخاطب مورد نظر آنفالو شد.");
+  //       setThisUserFollow(!thisUserFollow);
+  //     }
+  //   });
+  // }
+
   setLikeRefresh(
     userInfo && post.like && post.like.indexOf(userInfo.id) !== -1
       ? true
@@ -24,6 +59,7 @@ function Article({
   function createMarkup() {
     return { __html: post.content };
   }
+
   return (
     <div className="container">
       <div className="row">
@@ -59,15 +95,26 @@ function Article({
                 <Link className="link-dark" to={`../users/${post.user}`}>
                   {post.author}
                 </Link>
-                {/* <a href="#" className="btn follow">
-                  دنبال کنید
-                </a>
-                <span className="author-description">
-                  Founder of WowThemes.net and creator of <b>"Mediumish"</b>{" "}
-                  theme that you're currently previewing. Developing
-                  professional premium themes, templates, plugins, scripts since
-                  2012.
-                </span> */}
+                {/* {isFollowing ? (
+                  <a
+                    onClick={unfollow}
+                    style={{ cursor: "pointer" }}
+                    className="btn follow"
+                  >
+                    دنبال می کنید
+                  </a>
+                ) : (
+                  <a
+                    onClick={follow}
+                    style={{ cursor: "pointer" }}
+                    className="btn btn-success text-white follow"
+                  >
+                    دنبال کنید
+                  </a>
+                )} */}
+                <span className="d-block author-description">
+                  یک نویسنده ی ساده...
+                </span>
                 <span className="post-date">
                   {"   "}
                   {post.date}

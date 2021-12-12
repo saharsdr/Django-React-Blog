@@ -25,7 +25,9 @@ function Author({ postRefresh, setPostRefresh }) {
     console.log("hi");
     fetchPosts();
   }, [postRefresh]);
-
+  author.status == "404"
+    ? (document.title = "کاربر ناموجود")
+    : (document.title = `صفحه ی ${author.name}`);
   return (
     <div>
       {author.status == "404" ? (

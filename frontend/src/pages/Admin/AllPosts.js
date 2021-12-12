@@ -9,6 +9,7 @@ function AllPosts({ postRefresh, setPostRefresh, posts, search }) {
       searchValue1.indexOf(search) !== -1 || searchValue2.indexOf(search) !== -1
     );
   });
+  document.title = " لیست نوشته ها";
   return (
     <div>
       <div className="section-title">

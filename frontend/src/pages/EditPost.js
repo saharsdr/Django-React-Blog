@@ -14,7 +14,7 @@ function EditPost({ postRefresh, setPostRefresh }) {
   const [postCategory, setPostCategory] = useState([]);
   const userInfo = getUserInfo();
   const [category, setCategory] = useState([]);
-
+  document.title = "ویرایش نوشته";
   useEffect(() => {
     async function fetchPost() {
       const { data } = await axios.get(`/api/posts/${postId}/`);

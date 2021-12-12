@@ -34,13 +34,16 @@ function Single({ articles }) {
     }
     fetchPostComments();
   }, [refresh]);
-
+  post
+    ? (document.title = `${post.title}`)
+    : (document.title = "نوشته ناموجود");
   return (
     <div>
       <Article
         setLikeRefresh={setLikeRefresh}
         likeRefresh={likeRefresh}
         post={post}
+        post_user={post.user}
         category={postCategory}
         comments_len={postComments.length}
       />

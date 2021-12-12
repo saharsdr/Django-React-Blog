@@ -45,7 +45,7 @@ def getUserFollower(request):
 
 
 # this user whant to follow another user
-@api_view(['POST'])
+@api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def createUserFollowing(request, pk):
     try:
@@ -94,7 +94,7 @@ def deleteUserFollowing(request, pk):
         return Response(message, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['POST'])
+@api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def getUserThisFollowing(request, pk):
     try:
@@ -130,6 +130,7 @@ def getUserFollowingsPosts(request):
             posts = list(chain(posts, arr[0:20]))
         listt = sorted(posts, key=lambda p: p._id)
         listt = listt[::-1]
+        print(listt)
         serailizer = PostSerializer(listt, many=True)
         newlist = serailizer.data
         return Response(newlist, status=status.HTTP_200_OK)

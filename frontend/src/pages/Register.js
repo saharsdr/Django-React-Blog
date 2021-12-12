@@ -29,6 +29,7 @@ function Register() {
     // localStorage.setItem("user-info", JSON.stringify(data));
     // history.push("/add");
   }
+  document.title = "ثبت نام";
   return (
     <>
       <Div>

@@ -25,7 +25,7 @@ function NewPost({ postRefresh, setPostRefresh }) {
     }
     fetchCategory();
   }, []);
-
+  document.title = " پست جدید";
   let opList = [];
   opList = category.map((item) => ({ value: item._id, label: item.name }));
 
