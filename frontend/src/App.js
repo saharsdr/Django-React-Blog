@@ -27,7 +27,7 @@ import getUserInfo from "./actions/getUserInfo";
 import FollowingPosts from "./pages/FollowingPosts";
 
 function App() {
-  const userInfo = getUserInfo();
+  const [userInfo, setUserInfo] = useState(getUserInfo());
   const [postRefresh, setPostRefresh] = useState(true);
   const [articles, setArticles] = useState([]);
   const [userArticles, setUserArticles] = useState([]);
@@ -38,20 +38,27 @@ function App() {
       setArticles(data);
     }
     fetchPosts();
-    async function fetchUserPosts() {
-      const { data } = await axios.get("/api/posts-proposed/", {
-        headers: {
-          Authorization: `Bearer ${userInfo.token}`,
-        },
-      });
-      setUserArticles(data);
+    if (userInfo) {
+      async function fetchUserPosts() {
+        const { data } = await axios.get("/api/posts-proposed/", {
+          headers: {
+            Authorization: `Bearer ${userInfo.token}`,
+          },
+        });
+        setUserArticles(data);
+      }
+      fetchUserPosts();
     }
-    fetchUserPosts();
-  }, [postRefresh]);
+  }, [postRefresh, userInfo]);
   const location = useLocation();
   return (
     <>
-      <Header setSearch={setSearch} search={search} />
+      <Header
+        userInfo={userInfo}
+        setUserInfo={setUserInfo}
+        setSearch={setSearch}
+        search={search}
+      />
       <Container>
         <Switch location={location} key={location.pathname}>
           <Route path="/" exact>
@@ -93,7 +100,7 @@ function App() {
             />
           </Route>
           <Route path="/login">
-            <Login />
+            <Login userInfo={userInfo} setUserInfo={setUserInfo} />
           </Route>
           <Route path="/register">
             <Register />

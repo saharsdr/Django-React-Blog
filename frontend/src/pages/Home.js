@@ -1,17 +1,19 @@
 import Featured from "../sections/Featured";
 import RecentPosts from "../sections/RecentPosts";
 import Hero from "../components/Hero";
+import getUserInfo from "../actions/getUserInfo";
 
 function Home({ userArticles, articles, search }) {
   let displayedContacts = articles.filter(function (el) {
     let searchValue = el.title.toLowerCase();
     return searchValue.indexOf(search) !== -1;
   });
+  const userInfo = getUserInfo();
   document.title = "خانه";
   return (
     <div>
       <Hero />
-      <Featured articles={userArticles} />
+      {userInfo && <Featured articles={userArticles} />}
       <RecentPosts articles={displayedContacts} />
     </div>
   );

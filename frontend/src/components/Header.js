@@ -3,13 +3,14 @@ import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import getUserInfo from "../actions/getUserInfo";
 
-function Header({ setSearch, search }) {
+function Header({ setSearch, search, userInfo, setUserInfo }) {
   function logout() {
     // localStorage.setItem("user-info", "");
     localStorage.removeItem("user-info");
+    setUserInfo(null);
     alert("شما از حساب خود خارج شدید.");
   }
-  const userLogin = getUserInfo();
+
   return (
     <>
       <nav
@@ -45,7 +46,7 @@ function Header({ setSearch, search }) {
                   صفحه نخست <span className="sr-only">(current)</span>
                 </Link>
               </li>
-              {userLogin ? (
+              {userInfo ? (
                 <>
                   <li className="nav-item">
                     <Link className="nav-link" to="/posts/following">
@@ -57,14 +58,14 @@ function Header({ setSearch, search }) {
                 ""
               )}
 
-              {userLogin ? (
+              {userInfo ? (
                 <>
                   <NavDropdown
-                    title={`${userLogin.name}`}
+                    title={`${userInfo.name}`}
                     id="basic-nav-dropdown"
                   >
                     <NavDropdown.Item>
-                      <Link className="nav-link" to={`/users/${userLogin.id}`}>
+                      <Link className="nav-link" to={`/users/${userInfo.id}`}>
                         پست های من
                       </Link>
                     </NavDropdown.Item>
@@ -98,7 +99,7 @@ function Header({ setSearch, search }) {
                   </li>{" "}
                 </>
               )}
-              {userLogin && userLogin.isAdmin ? (
+              {userInfo && userInfo.isAdmin ? (
                 <>
                   <NavDropdown title="ادمین" id="basic-nav-dropdown">
                     <NavDropdown.Item>

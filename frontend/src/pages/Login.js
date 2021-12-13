@@ -3,21 +3,28 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
+import getUserInfo from "../actions/getUserInfo";
 
-function Login() {
+function Login({ userInfo, setUserInfo }) {
   document.title = "ورود";
   const history = useHistory();
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   async function login() {
-    const { data } = await axios.post("/api/users-login/", {
-      password: pass,
-      username: email,
-    });
-    console.warn(data);
-    localStorage.setItem("user-info", JSON.stringify(data));
-    let path = `/users/${data.id}`;
-    history.push(path);
+    try {
+      if (!userInfo) {
+        const { data } = await axios.post("/api/users-login/", {
+          password: pass,
+          username: email,
+        });
+        localStorage.setItem("user-info", JSON.stringify(data));
+        setUserInfo(getUserInfo());
+        let path = `/`;
+        history.push(path);
+      }
+    } catch (error) {
+      console.warn(error);
+    }
   }
 
   return (
