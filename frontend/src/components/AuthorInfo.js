@@ -1,6 +1,34 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
-function AuthorInfo({ author }) {
+import axios from "axios";
+import getUserInfo from "../actions/getUserInfo";
+import { followUser, unfollowUser } from "../actions/followUnfollow";
+
+function AuthorInfo({
+  author,
+  isHeMyFollowing,
+  fallowingRefresh,
+  setFallowingRefresh,
+}) {
+  const userInfo = getUserInfo();
+
+  function follow() {
+    followUser(author.id).then((result) => {
+      if (result) {
+        alert("مخاطب مورد نظر فالو شد.");
+        setFallowingRefresh(!fallowingRefresh);
+      }
+    });
+  }
+  function unfollow() {
+    unfollowUser(author.id).then((result) => {
+      if (result) {
+        alert("مخاطب مورد نظر آنفالو شد.");
+        setFallowingRefresh(!fallowingRefresh);
+      }
+    });
+  }
+
   return (
     <div className="container">
       <div className="row">
@@ -20,13 +48,31 @@ function AuthorInfo({ author }) {
                     <i className="fa fa-google-plus"></i>
                   </a>
                 </div>
-                <a
-                  target="_blank"
-                  href="https://twitter.com/"
-                  className="btn follow"
-                >
-                  Follow
-                </a>
+                {userInfo && !(userInfo.id === author.id) ? (
+                  isHeMyFollowing ? (
+                    <a
+                      onClick={unfollow}
+                      style={{
+                        cursor: "pointer",
+                        color: "white",
+                        background: "#0078f4",
+                      }}
+                      className="btn  follow"
+                    >
+                      دنبال می کنید
+                    </a>
+                  ) : (
+                    <a
+                      onClick={follow}
+                      style={{ cursor: "pointer", borderColor: "#0078f4" }}
+                      className="btn follow "
+                    >
+                      دنبال کنید
+                    </a>
+                  )
+                ) : (
+                  ""
+                )}
               </div>
               <div className="col-md-2 col-xs-12">
                 <img

@@ -2,50 +2,40 @@ import React, { useState, useEffect } from "react";
 import ShareArticle from "../components/ShareArticle";
 import { Link } from "react-router-dom";
 import getUserInfo from "../actions/getUserInfo";
-import {
-  isFollowUser,
-  followUser,
-  unfollowUser,
-} from "../actions/followUnfollow";
+import { followUser, unfollowUser } from "../actions/followUnfollow";
+import axios from "axios";
 
 function Article({
   post,
-  post_user,
+  isHeMyFollowing,
+  setFallowingRefresh,
+  fallowingRefresh,
   category,
   comments_len,
   setLikeRefresh,
   likeRefresh,
 }) {
-  const [isFollowing, setIsFollowing] = useState(false);
   const [thisUserLike, setThisUserLike] = useState(false);
-  const [thisUserFollow, setThisUserFollow] = useState(false);
   const userInfo = getUserInfo();
-  // useEffect(() => {
-  //   async function getIt() {
-  //     const data = await isFollowUser(post_user);
-  //     setIsFollowing(data);
-  //   }
-  //   getIt();
-  // }, [thisUserFollow]);
 
-  // function follow() {
-  //   followUser(post.user).then((result) => {
-  //     console.log(result);
-  //     if (result) {
-  //       alert("مخاطب مورد نظر فالو شد.");
-  //       setThisUserFollow(!thisUserFollow);
-  //     }
-  //   });
-  // }
-  // function unfollow() {
-  //   unfollowUser(post.user).then((result) => {
-  //     console.log(result);
-  //     if (result) {
-  //       alert("مخاطب مورد نظر آنفالو شد.");
-  //       setThisUserFollow(!thisUserFollow);
-  //     }
-  //   });
-  // }
+  function follow() {
+    followUser(post.user).then((result) => {
+      console.log(result);
+      if (result) {
+        alert("مخاطب مورد نظر فالو شد.");
+        setFallowingRefresh(!fallowingRefresh);
+      }
+    });
+  }
+  function unfollow() {
+    unfollowUser(post.user).then((result) => {
+      console.log(result);
+      if (result) {
+        alert("مخاطب مورد نظر آنفالو شد.");
+        setFallowingRefresh(!fallowingRefresh);
+      }
+    });
+  }
 
   setLikeRefresh(
     userInfo && post.like && post.like.indexOf(userInfo.id) !== -1
@@ -95,23 +85,31 @@ function Article({
                 <Link className="link-dark" to={`../users/${post.user}`}>
                   {post.author}
                 </Link>
-                {/* {isFollowing ? (
-                  <a
-                    onClick={unfollow}
-                    style={{ cursor: "pointer" }}
-                    className="btn follow"
-                  >
-                    دنبال می کنید
-                  </a>
+                {userInfo && !(userInfo.id === post.user) ? (
+                  isHeMyFollowing ? (
+                    <a
+                      onClick={unfollow}
+                      style={{
+                        cursor: "pointer",
+                        color: "white",
+                        background: "#0078f4",
+                      }}
+                      className="btn  follow"
+                    >
+                      دنبال می کنید
+                    </a>
+                  ) : (
+                    <a
+                      onClick={follow}
+                      style={{ cursor: "pointer", borderColor: "#0078f4" }}
+                      className="btn follow "
+                    >
+                      دنبال کنید
+                    </a>
+                  )
                 ) : (
-                  <a
-                    onClick={follow}
-                    style={{ cursor: "pointer" }}
-                    className="btn btn-success text-white follow"
-                  >
-                    دنبال کنید
-                  </a>
-                )} */}
+                  ""
+                )}
                 <span className="d-block author-description">
                   یک نویسنده ی ساده...
                 </span>

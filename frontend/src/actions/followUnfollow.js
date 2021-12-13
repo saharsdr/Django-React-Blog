@@ -4,16 +4,20 @@ import getUserInfo from "./getUserInfo";
 export async function isFollowUser(user_id) {
   const userInfo = getUserInfo();
   if (userInfo) {
-    const result = await axios.get(`/api/user-following/${user_id}/`, {
-      headers: {
-        Authorization: `Bearer ${userInfo.token}`,
-      },
-    });
-    if (result === "yes") {
-      return true;
-    } else {
-      return false;
-    }
+    await axios
+      .get(`/api/user-following/${user_id}/`, {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      })
+      .then((result) => {
+        if (result === "yes") {
+          return true;
+        } else {
+          return false;
+        }
+      })
+      .catch((error) => console.log(error));
   } else {
     return false;
   }
@@ -27,7 +31,8 @@ export async function followUser(user_id) {
         Authorization: `Bearer ${userInfo.token}`,
       },
     });
-    if (result.detail === "Done") {
+
+    if (result.data.detail === "Done" || result.data.detail === "Dublicated") {
       return true;
     } else {
       return false;
@@ -48,7 +53,7 @@ export async function unfollowUser(user_id) {
         },
       }
     );
-    if (result.detail === "Done") {
+    if (result.data.detail === "Done" || result.data.detail === "Not Found.") {
       return true;
     } else {
       return false;
