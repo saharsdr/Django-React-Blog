@@ -26,7 +26,7 @@ function ShareArticle({
           });
           setLikeRefresh(!likeRefresh);
           setThisUserLike(!thisUserLike);
-          alert("شما پشت را لایک کردید.");
+          alert("شما پست را لایک کردید.");
         } catch (error) {
           console.log("erroe");
         }
@@ -39,7 +39,7 @@ function ShareArticle({
           });
           setLikeRefresh(!likeRefresh);
           setThisUserLike(!thisUserLike);
-          alert("شما پشت را دیس لایک کردید.");
+          alert("شما پست را دیس لایک کردید.");
         } catch (error) {
           console.log("erroe");
         }

@@ -14,8 +14,9 @@ function Article({
   comments_len,
   setLikeRefresh,
   likeRefresh,
+  thisUserLike,
+  setThisUserLike,
 }) {
-  const [thisUserLike, setThisUserLike] = useState(false);
   const userInfo = getUserInfo();
 
   function follow() {

@@ -20,31 +20,38 @@ function Single({ articles }) {
 
   const [isHeMyFollowing, setIsHeMyFollowing] = useState(false);
   const [fallowingRefresh, setFallowingRefresh] = useState(false);
+
+  const [thisUserLike, setThisUserLike] = useState(false);
   const userInfo = getUserInfo();
+
   useEffect(() => {
-    axios
-      .get(`/api${url}/`)
-      .then((result) => setPost(result.data))
-      .then(() => {
-        console.log(post);
-        console.log(post.user);
-        if (userInfo) {
-          axios
-            .get(`/api/user-following/${post.user}/`, {
-              headers: {
-                Authorization: `Bearer ${userInfo.token}`,
-              },
-            })
-            .then((result) => {
-              if (result.data === "yes") {
-                setIsHeMyFollowing(true);
-              } else {
-                setIsHeMyFollowing(false);
-              }
-            })
-            .catch((error) => console.log(error));
+    axios.get(`/api${url}/`).then((result) => {
+      setPost(result.data);
+      if (userInfo) {
+        if (result.data && result.data.like.indexOf(userInfo.id) === -1) {
+          setThisUserLike(false);
+        } else {
+          setThisUserLike(true);
         }
-      });
+      }
+
+      if (userInfo) {
+        axios
+          .get(`/api/user-following/${result.data.user}/`, {
+            headers: {
+              Authorization: `Bearer ${userInfo.token}`,
+            },
+          })
+          .then((result) => {
+            if (result.data === "yes") {
+              setIsHeMyFollowing(true);
+            } else {
+              setIsHeMyFollowing(false);
+            }
+          })
+          .catch((error) => console.log(error));
+      }
+    });
     async function fetchPostCategory() {
       const { data } = await axios.get(`/api${url}/category/`);
       setPostCategory(data);
@@ -65,6 +72,8 @@ function Single({ articles }) {
   return (
     <div>
       <Article
+        setThisUserLike={setThisUserLike}
+        thisUserLike={thisUserLike}
         setLikeRefresh={setLikeRefresh}
         likeRefresh={likeRefresh}
         post={post}
