@@ -25,6 +25,7 @@ import EditPost from "./pages/EditPost";
 import EditableForm from "./sections/EditableForm";
 import getUserInfo from "./actions/getUserInfo";
 import FollowingPosts from "./pages/FollowingPosts";
+import Friends from "./pages/Friends";
 
 function App() {
   const [userInfo, setUserInfo] = useState(getUserInfo());
@@ -118,6 +119,9 @@ function App() {
           </Route>
           <Route path="/admin/category-list">
             <AllCategory search={search} />
+          </Route>
+          <Route path="/user/:id/following" exact>
+            <Friends search={search} />
           </Route>
         </Switch>
         <Footer />

@@ -14,28 +14,44 @@ function EditPost({ postRefresh, setPostRefresh }) {
   const [postCategory, setPostCategory] = useState([]);
   const userInfo = getUserInfo();
   const [category, setCategory] = useState([]);
+
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [description, setDescription] = useState("");
+
   document.title = "ویرایش نوشته";
   useEffect(() => {
     async function fetchPost() {
-      const { data } = await axios.get(`/api/posts/${postId}/`);
-      setPost(data);
+      await axios.get(`/api/posts/${postId}/`).then((result) => {
+        setPost(result.data);
+        setTitle(result.data.title);
+        setDescription(result.data.descriprion);
+        setContent(result.data.content);
+        console.log(result.data);
+      });
     }
     fetchPost();
     async function fetchPostCategory() {
-      const { data } = await axios.get(`/api/posts/${postId}/category/`);
-      setPostCategory(data);
+      await axios.get(`/api/posts/${postId}/category/`).then((result) => {
+        setPostCategory(result.data);
+      });
     }
     fetchPostCategory();
   }, [postRefresh, location]);
 
   useEffect(() => {
     async function fetchCategory() {
-      const { data } = await axios.get("/api/category/", {
-        headers: {
-          Authorization: `Bearer ${userInfo.token}`,
-        },
-      });
-      setCategory(data);
+      await axios
+        .get("/api/category/", {
+          headers: {
+            Authorization: `Bearer ${userInfo.token}`,
+          },
+        })
+        .then((result) => {
+          setCategory(result.data);
+          console.log(result.data);
+          console.log(category);
+        });
     }
     fetchCategory();
   }, [postRefresh]);
@@ -50,6 +66,12 @@ function EditPost({ postRefresh, setPostRefresh }) {
         setPostRefresh={setPostRefresh}
         postCategory={postCategory}
         allCategory={category}
+        title={title}
+        setTitle={setTitle}
+        content={content}
+        setContent={setContent}
+        description={description}
+        setDescription={setDescription}
       />
     </div>
   );

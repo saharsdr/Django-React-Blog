@@ -76,6 +76,15 @@ function Header({ setSearch, search, userInfo, setUserInfo }) {
                       </Link>
                     </NavDropdown.Item>
 
+                    <NavDropdown.Item>
+                      <Link
+                        className="nav-link"
+                        to={`/user/${userInfo.id}/following`}
+                      >
+                        دوستان
+                      </Link>
+                    </NavDropdown.Item>
+
                     <NavDropdown.Divider />
                     <NavDropdown.Item>
                       <Link onClick={logout} className="nav-link" to="/login">

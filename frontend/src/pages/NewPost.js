@@ -32,8 +32,11 @@ function NewPost({ postRefresh, setPostRefresh }) {
   const [selectedOption, setSelectedOption] = useState(null);
   const history = useHistory();
   const [title, setTitle] = useState("");
+  const [postId, setPostId] = useState("");
   const [content, setContent] = useState("");
   const [description, setDescription] = useState("");
+  const [image, setImage] = useState("");
+  const [formData, setFormData] = useState(null);
   async function handlerSavePost() {
     if (userInfo) {
       if (title == "" || content == "" || description == "") {
@@ -55,10 +58,35 @@ function NewPost({ postRefresh, setPostRefresh }) {
       );
       if (status === "error") {
         alert("مشکلی پیش آمده است.");
+      } else {
+        setPostId(status._id);
+        console.log(postId);
+        try {
+          const { data } = await axios.post("/api/posts-image/", formData, {
+            headers: {
+              Authorization: `Bearer ${userInfo.token}`,
+            },
+          });
+          console.warn(data);
+        } catch (error) {
+          console.error(error);
+        }
+
+        history.push("/");
       }
       console.log(selectedOption);
     }
   }
+
+  const uploadFileHandler = async (e) => {
+    const file = e.target.files[0];
+    const formData = new FormData();
+
+    formData.append("image", file);
+    formData.append("post_id", postId);
+
+    setFormData(formData);
+  };
 
   return (
     <div className="App">
@@ -77,7 +105,17 @@ function NewPost({ postRefresh, setPostRefresh }) {
       </Form.Group>
       <Form.Group controlId="formFile" className="mb-3">
         <Form.Label>تصویر را انتخاب کنید</Form.Label>
-        <Form.Control type="file" />
+        <Form.Control
+          placeholder="تصویر را انتخاب کنید"
+          type="file"
+          onChange={uploadFileHandler}
+        />
+        {/* <Form.File
+        // id="image-file"
+        // label="تصویر انتخاب کن"
+        // custom
+        // onChange={uploadFileHandler}
+        /> */}
       </Form.Group>
       <Form.Group className="mb-3">
         <Form.Label>خلاصه : </Form.Label>

@@ -43,6 +43,20 @@ def createPost(request):
     return Response(serializer.data)
 
 
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def uploadImage(request):
+    data = request.data
+
+    postId = data['post_id']
+    post = Post.objects.get(_id=postId)
+
+    post.thumbnail_pic = request.FILES.get('image')
+    post.save()
+
+    return Response('Image was uploaded')
+
+
 # Delete a Post
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
@@ -60,10 +74,18 @@ def deletePost(request, pk):
 @permission_classes([IsAuthenticated])
 def updatePost(request, pk):
     post = Post.objects.get(_id=pk)
-    serializer = PostCreateSerializer(instance=post, data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-    return Response(serializer.data)
+    data = request.data
+    post.title = data['title']
+    post.descriprion = data['descriprion']
+    post.content = data['content']
+
+    arr = []
+    for item in data['category']:
+        arr.append(item['value'])
+
+    post.category.set(arr)
+    post.save()
+    return Response("post updated")
 
 
 @api_view(['GET'])

@@ -15,15 +15,16 @@ function PostFields({
   setPostRefresh,
   postCategory,
   allCategory,
+  title,
+  setTitle,
+  content,
+  setContent,
+  description,
+  setDescription,
 }) {
   const [selectedOption, setSelectedOption] = useState(null);
   const animatedComponents = makeAnimated();
-  const [title, setTitle] = useState(post.title);
-  const [content, setContent] = useState(post.content);
-  const [description, setDescription] = useState(post.descriprion);
-  useEffect(() => {
-    setTitle(post.title);
-  }, []);
+
   let opAllCategory = [];
   opAllCategory = allCategory.map((item) => ({
     value: item._id,
@@ -33,36 +34,39 @@ function PostFields({
     value: item._id,
     label: item.name,
   }));
-  // console.log(selectedOption);
-  console.log(post);
-  console.log(postCategory);
-  // setSelectedOption(postCategory);
-  // console.log(selectedOption);
-  // if (userInfo) {
+
+  useEffect(() => {
+    setSelectedOption(postCategory);
+  }, []);
+
   async function handlerEditPost() {
-    //   try {
-    //     await axios.post(
-    //       `/api/posts/${postId}/update/`,
-    //       {
-    //         title: title,
-    //         user: userInfo.id,
-    //         content: content,
-    //         descriprion: description,
-    //         category: selectedOption,
-    //       },
-    //       {
-    //         headers: {
-    //           Authorization: `Bearer ${userInfo.token}`,
-    //         },
-    //       }
-    //     );
-    //     alert("تغییرات ثبت شد.");
-    //     setPostRefresh(!postRefresh);
-    //   } catch (error) {
-    //     console.log(error.toJSON());
-    //     alert("مشکلی پیش آمده است.");
-    //   }
-    // }
+    if (userInfo) {
+      console.log(title);
+      console.log(description);
+      console.log(selectedOption);
+      try {
+        await axios.post(
+          `/api/posts/${postId}/update/`,
+          {
+            title: title,
+            user: userInfo.id,
+            content: content,
+            descriprion: description,
+            category: selectedOption,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${userInfo.token}`,
+            },
+          }
+        );
+        alert("تغییرات ثبت شد.");
+        setPostRefresh(!postRefresh);
+      } catch (error) {
+        console.log(error.toJSON());
+        alert("مشکلی پیش آمده است.");
+      }
+    }
   }
 
   return (
@@ -123,9 +127,9 @@ function PostFields({
           closeMenuOnSelect={false}
           components={animatedComponents}
           isMulti
-          defaultValue={postCategory}
+          defaultValue={postOpList}
           onChange={setSelectedOption}
-          options={allCategory}
+          options={opAllCategory}
         />
       </Form.Group>
       <Button

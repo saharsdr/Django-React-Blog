@@ -34,6 +34,8 @@ urlpatterns = [
 
     path('-create/', post_views.createPost, name='post-create'),
 
+    path('-image/', post_views.uploadImage, name='post-image-upload'),
+
 
     path('/<str:pk>/comment-create/',
          post_views.createPostComment, name='comment-create'),

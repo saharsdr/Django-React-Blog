@@ -27,7 +27,8 @@ class PostSerializer(serializers.ModelSerializer):
 class PostCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
-        fields = ('title', 'user', 'content', 'descriprion', 'category')
+        fields = ('title', 'user', 'content',
+                  'descriprion', 'category')
 
 
 class LikeSerializer(serializers.ModelSerializer):

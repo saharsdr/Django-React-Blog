@@ -27,24 +27,26 @@ export const CreatePost = async (
   const userInfo = getUserInfo();
 
   try {
-    await axios.post(
-      "/api/posts-create/",
-      {
-        title: title,
-        user: userInfo.id,
-        content: content,
-        descriprion: description,
-        category: category,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${userInfo.token}`,
+    await axios
+      .post(
+        "/api/posts-create/",
+        {
+          title: title,
+          user: userInfo.id,
+          content: content,
+          descriprion: description,
+          category: category,
         },
-      }
-    );
-    history.push("/");
-    setPostRefresh(!postRefresh);
-    return "ok";
+        {
+          headers: {
+            Authorization: `Bearer ${userInfo.token}`,
+          },
+        }
+      )
+      .then((result) => {
+        setPostRefresh(!postRefresh);
+        return result.data;
+      });
   } catch (error) {
     console.log(error.toJSON());
     return "error";
