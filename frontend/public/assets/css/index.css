@@ -656,3 +656,14 @@ ul.tags li a:hover {
   border-radius: 0.25rem;
   background-color: white;
 }
+
+.card-columns.listfeaturedtag {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  justify-content: space-between !important;
+  column-count: 0 !important;
+}
+.listfeaturedtag .card {
+  width: auto;
+  min-width: 48%;
+}
