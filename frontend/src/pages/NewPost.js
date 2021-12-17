@@ -11,6 +11,9 @@ import makeAnimated from "react-select/animated";
 import { CreatePost } from "../actions/postAction";
 
 function NewPost({ postRefresh, setPostRefresh }) {
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
   const animatedComponents = makeAnimated();
   const userInfo = getUserInfo();
   const [category, setCategory] = useState([]);

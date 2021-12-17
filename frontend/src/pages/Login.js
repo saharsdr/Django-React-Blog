@@ -6,6 +6,9 @@ import { useHistory } from "react-router-dom";
 import getUserInfo from "../actions/getUserInfo";
 
 function Login({ userInfo, setUserInfo }) {
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
   document.title = "ورود";
   const history = useHistory();
   const [email, setEmail] = useState("");

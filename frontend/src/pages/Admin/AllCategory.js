@@ -8,6 +8,9 @@ import { RemoveCategory } from "../../actions/categoryAction";
 import { Link } from "react-router-dom";
 
 function AllCategory({ search }) {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const [category, setCategory] = useState([]);
   const [refresh, setRefresh] = useState(true);
   const userInfo = getUserInfo();

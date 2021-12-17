@@ -4,6 +4,9 @@ import User from "../../components/User";
 import getUserInfo from "../../actions/getUserInfo";
 
 function AllUsers({ search }) {
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
   const [users, setUsers] = useState([]);
   const userInfo = getUserInfo();
   console.log(userInfo);

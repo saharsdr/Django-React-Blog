@@ -6,6 +6,9 @@ import axios from "axios";
 import getUserInfo from "../actions/getUserInfo";
 
 function Author({ postRefresh, setPostRefresh }) {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const history = useHistory();
   const url = history.location.pathname;
 

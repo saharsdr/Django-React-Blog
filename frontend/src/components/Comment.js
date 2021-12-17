@@ -38,14 +38,13 @@ function Comment({ data, key, setRefresh, refresh, postAuthor }) {
             userInfo.id === postAuthor ||
             userInfo.isAdmin) ? (
             <>
+              <span className="comment__dots"></span>{" "}
               <small onClick={handlerRemoveComment}>Remove</small>{" "}
               <span className="comment__dots"></span>
             </>
           ) : (
             ""
           )}
-          <small>Reply</small> <span className="comment__dots"></span>{" "}
-          <small>Translate</small>{" "}
         </div>
         <div className="comment__icons align-items-center">
           {" "}

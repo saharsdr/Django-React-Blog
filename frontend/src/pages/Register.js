@@ -5,6 +5,9 @@ import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 
 function Register() {
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
   const history = useHistory();
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");

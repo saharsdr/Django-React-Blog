@@ -5,6 +5,9 @@ import RecentPosts from "../sections/RecentPosts";
 import getUserInfo from "../actions/getUserInfo";
 
 function FollowingPosts({ search, postRefresh }) {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const [articles, setArticles] = useState([]);
   const userInfo = getUserInfo();
   document.title = "نوشته های دوستان";

@@ -5,6 +5,9 @@ import { useLocation } from "react-router-dom";
 import PostFields from "../sections/PostFields";
 
 function EditPost({ postRefresh, setPostRefresh }) {
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
   const location = useLocation().pathname;
 
   const x1 = location.replace("posts", "");

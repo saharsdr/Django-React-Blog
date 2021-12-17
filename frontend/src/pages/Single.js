@@ -9,6 +9,9 @@ import { isFollowUser } from "../actions/followUnfollow";
 import getUserInfo from "../actions/getUserInfo";
 
 function Single({ articles }) {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const history = useHistory();
   const url = history.location.pathname;
   const [likeRefresh, setLikeRefresh] = useState(true);

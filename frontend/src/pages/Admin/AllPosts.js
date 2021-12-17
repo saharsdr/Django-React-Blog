@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import AuthorPosts from "../../sections/AuthorPosts";
 
 function AllPosts({ postRefresh, setPostRefresh, posts, search }) {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   let displayedContacts = posts.filter(function (el) {
     let searchValue1 = el.title.toLowerCase();
     let searchValue2 = el.author.toLowerCase();

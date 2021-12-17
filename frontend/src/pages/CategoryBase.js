@@ -5,6 +5,9 @@ import RecentPosts from "../sections/RecentPosts";
 import Hero from "../components/Hero";
 
 function CategoryBase() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const history = useHistory();
   const url = history.location.pathname;
   const [category, setCategory] = useState([]);
