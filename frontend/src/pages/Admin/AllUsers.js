@@ -5,12 +5,11 @@ import getUserInfo from "../../actions/getUserInfo";
 
 function AllUsers({ search }) {
   useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
+    window.scrollTo(0, 0);
+  }, []);
   const [users, setUsers] = useState([]);
   const userInfo = getUserInfo();
-  console.log(userInfo);
-  // const userToken = `Bearer `;
+
   useEffect(() => {
     async function fetchUsers() {
       const { data } = await axios.get("/api/users/", {

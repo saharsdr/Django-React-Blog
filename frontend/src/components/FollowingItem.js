@@ -1,13 +1,13 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-function FollowingItem() {
+function FollowingItem({ username, userId }) {
   return (
-    <div className="d-flex w-75 justify-content-between mx-auto py-2 px-3  follow-card">
+    <div className="d-flex w-75 justify-content-start mx-auto py-2 px-3  follow-card">
       <div>
-        <span className="title">name</span>
-      </div>
-      <div>
-        <a href="">follow/ unfollow</a>
+        <span className="title">
+          <Link to={`/users/${userId}`}>{username}</Link>
+        </span>
       </div>
     </div>
   );

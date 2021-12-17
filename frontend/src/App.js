@@ -22,7 +22,6 @@ import AllUsers from "./pages/Admin/AllUsers";
 import AllCategory from "./pages/Admin/AllCategory";
 import AllPosts from "./pages/Admin/AllPosts";
 import EditPost from "./pages/EditPost";
-import EditableForm from "./sections/EditableForm";
 import getUserInfo from "./actions/getUserInfo";
 import FollowingPosts from "./pages/FollowingPosts";
 import Friends from "./pages/Friends";
@@ -72,12 +71,6 @@ function App() {
           <Route path="/posts/following" exact>
             <FollowingPosts search={search} postRefresh={postRefresh} />
           </Route>
-          {/* <Route path="/:id" exact>
-            <EditableForm
-              postRefresh={postRefresh}
-              setPostRefresh={setPostRefresh}
-            />
-          </Route> */}
 
           <Route path="/category/:id" exact>
             <CategoryBase />

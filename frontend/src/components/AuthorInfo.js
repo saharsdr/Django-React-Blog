@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import getUserInfo from "../actions/getUserInfo";
 import { followUser, unfollowUser } from "../actions/followUnfollow";
+import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function AuthorInfo({
   author,
@@ -11,7 +13,13 @@ function AuthorInfo({
   setFallowingRefresh,
 }) {
   const userInfo = getUserInfo();
+  const history = useHistory();
+  const location = history.location.pathname;
 
+  let flaq = true;
+  if (location.includes("following")) {
+    flaq = false;
+  }
   function follow() {
     followUser(author.id).then((result) => {
       if (result) {
@@ -39,16 +47,12 @@ function AuthorInfo({
               <div className="col-md-10 col-xs-12">
                 <h1>{author.username}</h1>
                 <span className="author-description">یک نویسنده ی ساده...</span>
-                <div className="sociallinks">
-                  <a target="_blank" href="https://www.facebook.com//">
-                    <i className="fa fa-facebook"></i>
-                  </a>{" "}
-                  <span className="dot"></span>{" "}
-                  <a target="_blank" href="https://plus.google.com/">
-                    <i className="fa fa-google-plus"></i>
-                  </a>
+                <div className="py-2">
+                  <Link to={`/user/${author.id}/following`}>
+                    دنبال کنندگان و دنبال شوندگان
+                  </Link>
                 </div>
-                {userInfo && !(userInfo.id === author.id) ? (
+                {flaq && userInfo && !(userInfo.id === author.id) ? (
                   isHeMyFollowing ? (
                     <a
                       onClick={unfollow}

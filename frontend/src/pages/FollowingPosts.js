@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Hero from "../components/Hero";
-import RecentPosts from "../sections/RecentPosts";
 import getUserInfo from "../actions/getUserInfo";
+import Featured from "../sections/Featured";
 
 function FollowingPosts({ search, postRefresh }) {
   useEffect(() => {
@@ -31,7 +31,7 @@ function FollowingPosts({ search, postRefresh }) {
   return (
     <div>
       <Hero />
-      <RecentPosts articles={displayedContacts} />
+      <Featured articles={displayedContacts} />
     </div>
   );
 }

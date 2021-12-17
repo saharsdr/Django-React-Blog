@@ -20,6 +20,22 @@ def getUserFollowing(request):
     serializer = UserSerializer(following, many=True)
     return Response(serializer.data)
 
+# List of who user is following them
+
+
+@api_view(['GET'])
+def getUserFollowingById(request, pk):
+    try:
+        user = User.objects.get(id=pk)
+        items = user.following.all()
+        following = []
+        for item in items:
+            following.append(item.following)
+        serializer = UserSerializer(following, many=True)
+        return Response(serializer.data)
+    except:
+        return Response('error')
+
 
 def findUserFollowing(request):
     user = request.user
@@ -33,18 +49,22 @@ def findUserFollowing(request):
 
 
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
-def getUserFollower(request):
-    user = request.user
-    items = user.followed_by.all()
-    followers = []
-    for item in items:
-        followers.append(item.follower)
-    serializer = UserSerializer(followers, many=True)
-    return Response(serializer.data)
-
+def getUserFollower(request, pk):
+    try:
+        user = User.objects.get(id=pk)
+        items = user.followed_by.all()
+        followers = []
+        for item in items:
+            followers.append(item.follower)
+        serializer = UserSerializer(followers, many=True)
+        return Response(serializer.data)
+    except:
+        message = {'detail': 'Request failed.'}
+        return Response(message, status=status.HTTP_400_BAD_REQUEST)
 
 # this user whant to follow another user
+
+
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def createUserFollowing(request, pk):
