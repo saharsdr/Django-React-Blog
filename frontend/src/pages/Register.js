@@ -6,8 +6,8 @@ import { useHistory } from "react-router-dom";
 
 function Register() {
   useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
+    window.scrollTo(0, 0);
+  }, []);
   const history = useHistory();
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
@@ -19,6 +19,11 @@ function Register() {
           password: pass,
           email: email,
           name: name,
+        })
+        .then((resp) => {
+          if (resp.status === 200) {
+            alert("با موفقیت ثبت گردید.");
+          }
         })
         .catch(function (error) {
           console.log(error.toJSON());

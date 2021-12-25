@@ -22,7 +22,7 @@ def registerUser(request):
             password=make_password(data['password'])
         )
         serializer = UserSerializerWithToken(user, many=False)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
     except:
         message = {'detail': 'User with this email alreade exists'}
         return Response(message, status=status.HTTP_400_BAD_REQUEST)

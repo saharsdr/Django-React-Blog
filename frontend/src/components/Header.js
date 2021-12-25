@@ -61,7 +61,9 @@ function Header({ setSearch, search, userInfo, setUserInfo }) {
               {userInfo ? (
                 <>
                   <NavDropdown
-                    title={`${userInfo.name}`}
+                    title={`${
+                      userInfo.name != "" ? userInfo.name : userInfo.username
+                    }`}
                     id="basic-nav-dropdown"
                   >
                     <NavDropdown.Item>

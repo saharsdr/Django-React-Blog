@@ -5,26 +5,26 @@ import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import getUserInfo from "../actions/getUserInfo";
 
-function Login({ userInfo, setUserInfo }) {
+function Login({ setUserInfo }) {
   useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
+    window.scrollTo(0, 0);
+  }, []);
   document.title = "ورود";
   const history = useHistory();
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   async function login() {
     try {
-      if (!userInfo) {
-        const { data } = await axios.post("/api/users-login/", {
-          password: pass,
-          username: email,
-        });
-        localStorage.setItem("user-info", JSON.stringify(data));
-        setUserInfo(getUserInfo());
-        let path = `/`;
-        history.push(path);
-      }
+      // if (!userInfo) {
+      const { data } = await axios.post("/api/users-login/", {
+        password: pass,
+        username: email,
+      });
+      localStorage.setItem("user-info", JSON.stringify(data));
+      setUserInfo(getUserInfo());
+      let path = `/`;
+      history.push(path);
+      // }
     } catch (error) {
       console.warn(error);
     }

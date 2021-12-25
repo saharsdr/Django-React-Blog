@@ -94,7 +94,7 @@ function App() {
             />
           </Route>
           <Route path="/login">
-            <Login userInfo={userInfo} setUserInfo={setUserInfo} />
+            <Login setUserInfo={setUserInfo} />
           </Route>
           <Route path="/register">
             <Register />
